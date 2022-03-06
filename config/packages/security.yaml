@@ -11,6 +11,7 @@ security:
                 class: App\Entity\User
                 property: mail_utilisateur
     firewalls:
+      
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -21,9 +22,13 @@ security:
                 # "login" is the name of the route created previously
                 login_path: login
                 check_path: login
+                      
+
             guard:
                 authenticators:
-                    - App\Security\UsersAuthenticator
+                   # - App\Security\GoogleAuthenticator
+                   - App\Security\UsersAuthenticator
+
             logout:
                 path: app_logout
                 # where to redirect after logout
