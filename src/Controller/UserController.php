@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @Route("/user")
- */
+
 class UserController extends AbstractController
 {   /**
     * @Route("/search", name="ajax_search")
@@ -81,7 +79,7 @@ return new Response(json_encode($jsonContent));
  */
 
 /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/user/", name="user_index", methods={"GET"})
      */
     public function index(UsersRepository $userRepository): Response
     {
@@ -90,7 +88,7 @@ return new Response(json_encode($jsonContent));
         ]);
     }
     /**
-     * @Route("/new", name="user_new", methods={"GET", "POST"})
+     * @Route("/user/new", name="user_new", methods={"GET", "POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response
     {
@@ -117,7 +115,7 @@ return new Response(json_encode($jsonContent));
         ]);
     }
     /**
-     * @Route("/newC", name="user_newC", methods={"GET", "POST"})
+     * @Route("/user/newC", name="user_newC", methods={"GET", "POST"})
      */
     public function newC(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -139,7 +137,7 @@ return new Response(json_encode($jsonContent));
     }
     
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("user/{id}", name="show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -148,7 +146,7 @@ return new Response(json_encode($jsonContent));
         ]);
     }
     /**
-     * @Route("showC", name="user_showC", methods={"GET"})
+     * @Route("/showC", name=showC", methods={"GET"})
      */
     public function showClient(UsersRepository $userRepository): Response
     {
@@ -157,7 +155,7 @@ return new Response(json_encode($jsonContent));
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -177,7 +175,7 @@ return new Response(json_encode($jsonContent));
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"POST"})
+     * @Route("/user/{id}", name="user_delete", methods={"POST"})
      */
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {

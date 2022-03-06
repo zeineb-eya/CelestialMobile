@@ -14,6 +14,8 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Mediumart\Orange\SMS\SMS;
+use Mediumart\Orange\SMS\Http\SMSClient;
 
 class RegistrationController extends AbstractController
 {
@@ -44,6 +46,12 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            $client = SMSClient::getInstance('2Yf3CBy0mWhiS0TcVCWonAOkEUXs6cLF', 'Bgflgfsi6lEN1e2V');
+            $sms = new SMS($client);
+            $sms->message('You made an account with us')
+            ->from('+21627300520')
+            ->to('+21627300520')
+            ->send();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,

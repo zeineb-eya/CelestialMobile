@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
     {
         $user = new User();
         $user->setMailUtilisateur('admin');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->encoder->encodePassword($user,'0000'));  
        // $user->setEmail('no-reply@overseas.media');
         $manager->persist($user);
