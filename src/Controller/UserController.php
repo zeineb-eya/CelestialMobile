@@ -137,7 +137,7 @@ return new Response(json_encode($jsonContent));
     }
     
     /**
-     * @Route("user/{id}", name="show", methods={"GET"})
+     * @Route("user/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -146,7 +146,7 @@ return new Response(json_encode($jsonContent));
         ]);
     }
     /**
-     * @Route("/showC", name=showC", methods={"GET"})
+     * @Route("/showC", name="user_showC", methods={"GET"})
      */
     public function showClient(UsersRepository $userRepository): Response
     {

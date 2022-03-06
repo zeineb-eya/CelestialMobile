@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+{% extends ('baseback/base.html.twig') %}
 
-<title>New Task</title>
+
 
 {% block body %}
+<!DOCTYPE html>
+
     <h1>Create new Task</h1>
 
     {{ include('task/_form.html.twig') }}
