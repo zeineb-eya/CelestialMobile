@@ -69,7 +69,7 @@ class UsersRepository extends ServiceEntityRepository
             ->createQuery(
                 'SELECT e
                 FROM App:User e
-                WHERE e.mail_utilisateur LIKE :str'
+                WHERE e.mail_utilisateur LIKE :str or e.nom_utilisateur LIKE :str or e.prenom_utilisateur LIKE :str'
             )
             ->setParameter('str', '%'.$str.'%')
             ->getResult();

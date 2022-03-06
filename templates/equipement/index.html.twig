@@ -19,7 +19,7 @@
   </div>
   <ul class="nav" id="side-menu">
       <li>
-          <ul class="nav nav-second-level" id="entitiesNav">
+          <ul class="nav nav-second-level" id="entitiesNav1">
           </ul>
       </li>
   </ul>
@@ -35,13 +35,13 @@
             var minlength = 1;
             var that = this;
             var value = $(this).val();
-            var entitySelector = $("#entitiesNav").html('');
+            var entitySelector = $("#entitiesNav1").html('');
             if (value.length >= minlength ) {
                 if (searchRequest != null)
                     searchRequest.abort();
                 searchRequest = $.ajax({
                     type: "GET",
-                    url: "{{ path('ajax_search') }}",
+                    url: "{{ path('ajax_searchh') }}",
                     data: {
                         'q' : value
                     },

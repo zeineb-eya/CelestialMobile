@@ -188,7 +188,7 @@ class EquipementController extends AbstractController
     /**
    * Creates a new ActionItem entity.
    *
-   * @Route("/search", name="ajax_search")
+   * @Route("/search", name="ajax_searchh")
    * @Method("GET")
    */
     public function searchAction(Request $request)

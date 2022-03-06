@@ -40,7 +40,7 @@ class UserController extends AbstractController
    public function getRealEntities($User){
  
        foreach ($User as $User){
-           $realEntities[$User->getId()] = $User->getMailUtilisateur();
+           $realEntities[$User->getId()] = [$User->getMailUtilisateur(),$User->getPrenomUtilisateur(),$User->getPrenomUtilisateur()];
        }
  
        return $realEntities;
