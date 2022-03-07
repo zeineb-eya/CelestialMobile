@@ -65,6 +65,14 @@ class PlaninngRepository extends ServiceEntityRepository
            // ->setMaxResults(3)
             ->getQuery()->getResult();
     }
+    public function orderByPrixPlan()
+    {
+        return $this->createQueryBuilder('per')
+            ->orderBy('per.prix_planning', 'ASC')
+
+           // ->setMaxResults(3)
+            ->getQuery()->getResult();
+    }
 
 public function search($nom_planning) {
     return $this->createQueryBuilder('Planinng')
