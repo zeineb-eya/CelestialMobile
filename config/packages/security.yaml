@@ -25,9 +25,8 @@ security:
                       
 
             guard:
-                entry_point: App\Security\UsersAuthentificator
                 authenticators:
-                  # - App\Security\GoogleAuthenticator
+                   # - App\Security\GoogleAuthenticator
                    - App\Security\UsersAuthenticator
 
             logout:
@@ -45,19 +44,3 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/user , roles: ROLE_ADMIN }
-        - { path: ^/showC , roles: ROLE_USER }
-        - { path: ^/equipementt/new , roles: ROLE_ADMIN }
-        - { path: ^/equipementt/edit , roles: ROLE_ADMIN }
-        - { path: ^/equipementt/display , roles: ROLE_ADMIN }
-        - { path: ^/equipementt, roles: ROLE_USER }
-        - { path: ^/role , roles: ROLE_ADMIN }
-        - { path: ^/commentaire , roles: ROLE_ADMIN }
-        - { path: ^/post , roles: ROLE_ADMIN }
-        - { path: ^/categorie/post , roles: ROLE_ADMIN }
-
-
-
-
-
-
-

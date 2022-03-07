@@ -6,40 +6,32 @@ use App\Repository\CategoriePostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=CategoriePostRepository::class)
  */
 class CategoriePost
 {
     /**
-     * @ORM\id
+     * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("categorie:read")
      */
     private $id;
 
-    public function __toString()
-    {
-        return $this->nom_categorie_post;
-    }
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="le champ est vide")
-     * @Groups("categorie:read")
      */
     private $nom_categorie_post;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="categoriePost", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="categoriePost")
      */
-    private $posts;
+    private $Post;
 
-        public function __construct()
+    public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->Post = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,17 +52,17 @@ class CategoriePost
     }
 
     /**
-     * @return Collection<int, Post>
+     * @return Collection|Post[]
      */
-    public function getPosts(): Collection
+    public function getPost(): Collection
     {
-        return $this->posts;
+        return $this->Post;
     }
 
     public function addPost(Post $post): self
     {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
+        if (!$this->Post->contains($post)) {
+            $this->Post[] = $post;
             $post->setCategoriePost($this);
         }
 
@@ -79,7 +71,7 @@ class CategoriePost
 
     public function removePost(Post $post): self
     {
-        if ($this->posts->removeElement($post)) {
+        if ($this->Post->removeElement($post)) {
             // set the owning side to null (unless already changed)
             if ($post->getCategoriePost() === $this) {
                 $post->setCategoriePost(null);
@@ -88,7 +80,4 @@ class CategoriePost
 
         return $this;
     }
-
-   
-   
 }

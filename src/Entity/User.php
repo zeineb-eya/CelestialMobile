@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\Commentaire;
-use App\Form\CommentaireType;
-use App\Entity\Post;
+
 use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

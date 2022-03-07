@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserType1;
-use src\Controller\PostController;
 use App\Repository\UsersRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\ORM\EntityManagerInterface;
@@ -174,26 +173,6 @@ return new Response(json_encode($jsonContent));
             'form' => $form->createView(),
         ]);
     }
-     /**
-     * @Route("/{id}/editC", name="user_editC", methods={"GET", "POST"})
-     */
-    public function editC(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('user/editC.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
 
     /**
      * @Route("/user/{id}", name="user_delete", methods={"POST"})
@@ -206,18 +185,6 @@ return new Response(json_encode($jsonContent));
         }
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
-    }
-     /**
-     * @Route("/C/{id}", name="user_deleteC", methods={"POST"})
-     */
-    public function deleteC(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
   

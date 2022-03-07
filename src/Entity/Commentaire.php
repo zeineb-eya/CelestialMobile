@@ -4,8 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
  */
@@ -15,39 +14,24 @@ class Commentaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("commentaire:read")
      */
     private $id;
-    public function __toString()
-    {
-        return $this->msg_commentaire;
-    }
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank(message="Do not leave empty")
-     * @Groups("commentaire:read")
      */
     private $date_commentaire;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Do not leave empty")
-     * @Groups("commentaire:read")
      */
     private $msg_commentaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="commentaires", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="Commentaire")
      */
     private $post;
 
-    public function __construct(){
-        $this->date_commentaire= new \DateTime();
-    }
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +72,4 @@ class Commentaire
 
         return $this;
     }
-
-    
 }

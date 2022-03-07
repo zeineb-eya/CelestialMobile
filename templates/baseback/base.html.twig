@@ -90,10 +90,8 @@
 					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion des utilisateurs:</h6>
-							<a class="collapse-item" href="{{'/role'}}">Roles</a>
-							<a class="collapse-item" href="{{'/user'}}">Utilisateurs</a>
-							<a class="collapse-item" href="{{'/task'}}">Tasks</a>
-
+							<a class="collapse-item" href="buttons.html">Roles</a>
+							<a class="collapse-item" href="buttons.html">Utilisateurs</a>
 
 						</div>
 					</div>
@@ -109,8 +107,10 @@
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion de Voyages:</h6>
-							<a class="collapse-item" href="utilities-color.html">Planning</a>
-							<a class="collapse-item" href="utilities-border.html">Localisation</a>
+							
+							<a class="collapse-item" href="{{path('planinng_index')}}">Planning</a>
+							<a class="collapse-item" href="{{path('localisation_index')}}">Localisation</a>
+
 
 						</div>
 					</div>
@@ -125,8 +125,8 @@
 					<div id="collapseThree" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion des réservations:</h6>
-							<a class="collapse-item" href="utilities-color.html">Réservation</a>
-							<a class="collapse-item" href="utilities-border.html">Billets</a>
+							<a class="collapse-item" href="{{ path('reservation_index') }}">Réservation</a>
+							<a class="collapse-item" href="{{ path('billet_index') }}">Billets</a>
 
 						</div>
 					</div>

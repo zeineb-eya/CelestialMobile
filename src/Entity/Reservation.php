@@ -37,6 +37,11 @@ class Reservation
      * @ORM\JoinColumn(nullable=false)
      */
     private $billet;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Etat_reservation;
    
  
     
@@ -86,6 +91,18 @@ class Reservation
     public function setBillet(?Billet $billet): self
     {
         $this->billet = $billet;
+
+        return $this;
+    }
+
+    public function getEtatReservation(): ?string
+    {
+        return $this->Etat_reservation;
+    }
+
+    public function setEtatReservation(string $Etat_reservation): self
+    {
+        $this->Etat_reservation = $Etat_reservation;
 
         return $this;
     }
