@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             //$client = SMSClient::getInstance('2Yf3CBy0mWhiS0TcVCWonAOkEUXs6cLF', 'Bgflgfsi6lEN1e2V');
             //$sms = new SMS($client);
-            //$sms->message('You made an account with us')
+            //$sms->message('You made an account with us! Visit us on www.Celestial.com and Discover Our features')
             //->from('+21627300520')
             //->to($user->getNumeroUtilisateur())
             //->send();

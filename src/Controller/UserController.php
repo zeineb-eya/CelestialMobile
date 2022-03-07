@@ -175,7 +175,7 @@ return new Response(json_encode($jsonContent));
         ]);
     }
      /**
-     * @Route("/user/{id}/editC", name="user_editC", methods={"GET", "POST"})
+     * @Route("/{id}/editC", name="user_editC", methods={"GET", "POST"})
      */
     public function editC(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -185,7 +185,7 @@ return new Response(json_encode($jsonContent));
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/editC.html.twig', [
@@ -206,6 +206,18 @@ return new Response(json_encode($jsonContent));
         }
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+    }
+     /**
+     * @Route("/C/{id}", name="user_deleteC", methods={"POST"})
+     */
+    public function deleteC(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
   
