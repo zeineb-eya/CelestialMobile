@@ -48,14 +48,14 @@ class GoogleAuthenticator extends SocialAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         /** @var GoogleUser $facebookUser */
-        $facebookUser = $this->getGoogleClient()
+        $googleUser = $this->getGoogleClient()
             ->fetchUserFromToken($credentials);
 
-        $email = $facebookUser->getEmail();
+        $email = $googleUser->getEmail();
 
         // 1) have they logged in with Facebook before? Easy!
         $existingUser = $this->em->getRepository(User::class)
-            ->findOneBy(['facebookId' => $facebookUser->getId()]);
+            ->findOneBy(['facebookId' => $googleUser->getId()]);
         if ($existingUser) {
             return $existingUser;
         }
@@ -66,7 +66,7 @@ class GoogleAuthenticator extends SocialAuthenticator
 
         // 3) Maybe you just want to "register" them by creating
         // a User object
-        $user->setGoogleId($facebookUser->getId());
+        $user->setGoogleId($googleUser->getId());
         $this->em->persist($user);
         $this->em->flush();
 

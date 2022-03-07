@@ -6,6 +6,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -13,46 +14,54 @@ use Doctrine\ORM\Mapping as ORM;
 class Post
 {
     /**
-     * @ORM\Id
+     * @ORM\id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Groups("post:read")
      */
-    private $nom_post;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $img_post;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Groups("post:read")
      */
     private $description_post;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CategoriePost::class, inversedBy="Post")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * 
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="post", orphanRemoval=true)
+     */
+    private $commentaires;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CategoriePost::class, inversedBy="posts" , cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $categoriePost;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="post")
-     */
-    private $Commentaire;
-
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="post")
-     */
-    private $User;
-
     public function __construct()
     {
-        $this->Commentaire = new ArrayCollection();
-        $this->User = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,14 +69,14 @@ class Post
         return $this->id;
     }
 
-    public function getNomPost(): ?string
+    public function getNom(): ?string
     {
-        return $this->nom_post;
+        return $this->nom;
     }
 
-    public function setNomPost(string $nom_post): self
+    public function setNom(string $nom): self
     {
-        $this->nom_post = $nom_post;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -96,6 +105,48 @@ class Post
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getPost() === $this) {
+                $commentaire->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getCategoriePost(): ?CategoriePost
     {
         return $this->categoriePost;
@@ -107,64 +158,7 @@ class Post
 
         return $this;
     }
-
-    /**
-     * @return Collection|Commentaire[]
-     */
-    public function getCommentaire(): Collection
-    {
-        return $this->Commentaire;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): self
-    {
-        if (!$this->Commentaire->contains($commentaire)) {
-            $this->Commentaire[] = $commentaire;
-            $commentaire->setPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): self
-    {
-        if ($this->Commentaire->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getPost() === $this) {
-                $commentaire->setPost(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->User;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->User->contains($user)) {
-            $this->User[] = $user;
-            $user->setPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->User->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getPost() === $this) {
-                $user->setPost(null);
-            }
-        }
-
-        return $this;
+    public function __toString(){
+        return $this->nom;
     }
 }

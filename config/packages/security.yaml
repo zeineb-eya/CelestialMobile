@@ -25,8 +25,9 @@ security:
                       
 
             guard:
+                entry_point: App\Security\UsersAuthentificator
                 authenticators:
-                   # - App\Security\GoogleAuthenticator
+                  # - App\Security\GoogleAuthenticator
                    - App\Security\UsersAuthenticator
 
             logout:
@@ -47,6 +48,14 @@ security:
         - { path: ^/equipementt/new , roles: ROLE_ADMIN }
         - { path: ^/equipementt/edit , roles: ROLE_ADMIN }
         - { path: ^/equipementt/display , roles: ROLE_ADMIN }
+        - { path: ^/role , roles: ROLE_ADMIN }
+        - { path: ^/commentaire , roles: ROLE_ADMIN }
+        - { path: ^/post , roles: ROLE_ADMIN }
+        - { path: ^/categorie/post , roles: ROLE_ADMIN }
+
+
+
+
 
 
 
