@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\LocalisationRepository;
 
 use App\Repository\PlaninngRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use App\Entity\Localisation;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -90,11 +91,7 @@ class Planinng
      */
     private $prix_planning;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="Planinng")
-     */
-    private $localisation;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Please upload image")
@@ -102,12 +99,16 @@ class Planinng
      */
     private $img_planinng;
 
+     
+
 
     public function __construct()
     {
         $this->billets = new ArrayCollection();
-    }
+        $this->localisation = new ArrayCollection();
 
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -197,17 +198,6 @@ class Planinng
         return $this;
     }
 
-    public function getLocalisation(): ?Localisation
-    {
-        return $this->localisation;
-    }
-
-    public function setLocalisation(?Localisation $localisation): self
-    {
-        $this->localisation = $localisation;
-
-        return $this;
-    }
 
     public function getimgPlaninng()
     {
@@ -220,5 +210,8 @@ class Planinng
         $this->img_planinng = $img_planinng;
         return $this;
     }
+
+
+    
 
 }

@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\LocalisationRepository;
+use App\Repository\PlaninngRepository;
+
+use App\Entity\Planinng;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,6 +25,9 @@ class Localisation
      */
     private $id;
 
+
+
+   
     /**
      * @ORM\Column(type="time")
      */
@@ -57,10 +63,14 @@ class Localisation
      */
     private $billet;
 
+    
+    
+
     public function __construct()
     {
-        $this->Planinng = new ArrayCollection();
         $this->billet = new ArrayCollection();
+        $this->planning = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -127,7 +137,8 @@ class Localisation
 
         return $this;
     }
-
+   
+    
    
     /**
      * @return Collection|Billet[]
@@ -158,4 +169,37 @@ class Localisation
 
         return $this;
     }
+
+     /**
+     * @return Collection|planinng[]
+     */
+    public function getplaninng(): Collection
+    {
+        return $this->nomPlanning;
+    }
+    public function addplaninng(planinng $nomPlanning): self
+    {
+        if (!$this->planinng->contains($nomPlanning)) {
+            $this->planinng[] = $nomPlanning;
+            $nomPlanning->setNomPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planinng $nomPlanning)
+    {
+        if ($this->planning->removeElement($nomPlanning)) {
+            // set the owning side to null (unless already changed)
+            if ($nomPlanning->getNomPlanning() === $this) {
+                $nomPlanning->setNomPlanning($this);
+            }
+        }
+   
+    }
+
+    
+
+    
+   
 }
