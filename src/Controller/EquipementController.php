@@ -112,14 +112,14 @@ class EquipementController extends AbstractController
             $equipement->setImageEquipement($filename);
             $entityManager->persist($equipement);
             $entityManager->flush();
-            $client = SMSClient::getInstance('2Yf3CBy0mWhiS0TcVCWonAOkEUXs6cLF', 'Bgflgfsi6lEN1e2V');
-            $sms = new SMS($client);
-            $sms->message('Une Categorie a ete ajoutee . Consulez notre site !')
-            ->from('+21627300520')
+            //$client = SMSClient::getInstance('2Yf3CBy0mWhiS0TcVCWonAOkEUXs6cLF', 'Bgflgfsi6lEN1e2V');
+            //$sms = new SMS($client);
+            //$sms->message('Une Categorie a ete ajoutee . Consulez notre site !')
+            //->from('+21627300520')
             //>to($User->getNumTel()) on n a pas fais ce choix a cause du cout SMS
                    
-            ->to('+21628327313')
-            ->send();
+            //->to('+21628327313')
+            //->send();
 
             return $this->redirectToRoute('equipement_index', [], Response::HTTP_SEE_OTHER);
         }

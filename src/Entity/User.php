@@ -121,6 +121,16 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="user")
      */
     private $nom_role;
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $googleId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $googleAccessToken;
+
    
     public function __construct()
     {
@@ -150,6 +160,30 @@ class User implements UserInterface
     {
         return $this->prenom_utilisateur;
     }
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): self
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    public function getGoogleAccessToken(): ?string
+    {
+        return $this->googleAccessToken;
+    }
+
+    public function setGoogleAccessToken(?string $googleAccessToken): self
+    {
+        $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
+    }
+
 
     public function setPrenomUtilisateur(string $prenom_utilisateur): self
     {
