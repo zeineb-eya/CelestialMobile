@@ -57,7 +57,7 @@
                                         if (id != 'error') {
                                              
                                             console.log(id , value)
-                                            entitySelector.append('<li><b>'+value[0]+'</b><a href="/equipementt/'+id+'">'+'<img src="/uploads/'+value[4]+'" style="width: 50px; height: 50px"/>'+'</a></li>');
+                                            entitySelector.append('<li><b>'+value[0]+'</b><a href="/equipementt/'+id+'">'+'<img src="/uploads/images/'+value[4]+'" style="width: 50px; height: 50px"/>'+'</a></li>');
                                                     
                                                     
                                         } else {
@@ -92,7 +92,7 @@
                         <div class="featured-box">
                             <figure>
 
-                            <a href="#"><img class="img-fluid" src="{{ '../uploads/images' ~ equipement.imageEquipement }}" alt=""style="width: 250px; height: 250px"></a>
+                            <a href="#"><img class="img-fluid" src="{{ '../uploads/images/' ~ equipement.imageEquipement }}" alt=""style="width: 250px; height: 250px"></a>
                             </figure>
                             <div class="content-wrapper">
                                 <div class="feature-content">
