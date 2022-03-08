@@ -96,6 +96,11 @@ class Offre
     private $date_fin_offre;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Planinng::class, inversedBy="offres")
+     */
+    private $planning;
+
+    /**
     * @Assert\Callback
     */
     public function validate(ExecutionContextInterface $context, $payload) {
@@ -186,6 +191,18 @@ class Offre
     public function setDateFinOffre(?\DateTimeInterface $date_fin_offre): self
     {
         $this->date_fin_offre = $date_fin_offre;
+
+        return $this;
+    }
+
+    public function getPlanning(): ?Planinng
+    {
+        return $this->planning;
+    }
+
+    public function setPlanning(?Planinng $planning): self
+    {
+        $this->planning = $planning;
 
         return $this;
     }

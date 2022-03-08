@@ -60,7 +60,7 @@ class ReclamationController extends AbstractController
               // Define the page parameter
               $request->query->getInt('page', 1),
               // Items per page
-              6
+              3
           );
           
         return $this->render('reclamation/index.html.twig', [

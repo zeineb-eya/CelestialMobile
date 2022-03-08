@@ -70,7 +70,7 @@ class LocalisationController extends AbstractController
     }
 
     /**
-     * @Route("/local", name="localisation_show", methods={"GET"})
+     * @Route("/show/{id}", name="localisation_show", methods={"GET"})
      */
     public function show(Localisation $localisation): Response
     {

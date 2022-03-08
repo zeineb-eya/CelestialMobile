@@ -21,8 +21,8 @@
                 <td>{{ commentaire.dateCommentaire ? commentaire.dateCommentaire|date('Y-m-d') : '' }}</td>
                 <td>{{ commentaire.msgCommentaire }}</td>
                 <td>
-                    <a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a>
-                    <a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                 <button class="btn btn-light">    <a href="{{ path('commentaire_show', {'id': commentaire.id}) }}">show</a> </button>
+                    <button class="btn btn-light"> <a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}">edit</a> </button>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
     {{ knp_pagination_render(commentaires) }}
 
 
-    <a href="{{ path('commentaire_new') }}">Create new</a>
+  <button class="btn btn-light">   <a href="{{ path('commentaire_new') }}">Create new</a> </button>
 {% endblock %}

@@ -18,6 +18,10 @@ class OffreType extends AbstractType
     {
         $builder
             ->add('nom_offre', TextType::class)
+            ->add('planning', EntityType::class, [
+            'class' => Planinng::class,
+            'choice_label'=> 'nom_planning',
+            ])
 
             ->add('description_offre', TextareaType::class)
             ->add('prix_offre')

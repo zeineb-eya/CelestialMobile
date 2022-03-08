@@ -99,6 +99,11 @@ class Planinng
      */
     private $img_planinng;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="planning")
+     */
+    private $offres;
+
      
 
 
@@ -106,6 +111,7 @@ class Planinng
     {
         $this->billets = new ArrayCollection();
         $this->localisation = new ArrayCollection();
+        $this->offres = new ArrayCollection();
 
     }
     
@@ -208,6 +214,36 @@ class Planinng
     public function setimgPlaninng($img_planinng)
     {
         $this->img_planinng = $img_planinng;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offre>
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setPlanning($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getPlanning() === $this) {
+                $offre->setPlanning(null);
+            }
+        }
+
         return $this;
     }
 

@@ -76,8 +76,9 @@
 					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion des utilisateurs:</h6>
-							<a class="collapse-item" href="buttons.html">Roles</a>
-							<a class="collapse-item" href="buttons.html">Utilisateurs</a>
+							<a class="collapse-item" href="{{path('user_index')}}">User</a>
+						<a class="collapse-item" href="{{path('role_index')}}">Role</a>
+						<a class="collapse-item" href="{{path('task_index')}}">Task</a>
 
 						</div>
 					</div>
@@ -126,8 +127,8 @@
 					<div id="collapseFour" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion d'équipements:</h6>
-							<a class="collapse-item" href="utilities-color.html">Equipements</a>
-							<a class="collapse-item" href="utilities-border.html">Categories d'equipements</a>
+							<a class="collapse-item" href="{{path('equipement_indexback')}}">Equipement</a>
+						<a class="collapse-item" href="{{path('categorie_equipement_indexback')}}">Catégories d'equipement</a>
 
 						</div>
 					</div>
