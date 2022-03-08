@@ -6,6 +6,7 @@ use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Workflow\StateMachine;
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -41,7 +42,7 @@ class Reclamation
 
     /**
      * @ORM\Column(type="date")
-    * @Assert\Date()
+     * @Assert\Date()
      * @Assert\GreaterThan("Yesterday")
      * @Assert\LessThan("tomorrow")
      * @Groups("reclamation:read")
@@ -52,14 +53,25 @@ class Reclamation
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Reclamation")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
+
+
+
+/**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+
+     private $etat_reclamation;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+
 
 
     public function getDescriptionReclamation(): ?string
@@ -99,4 +111,29 @@ class Reclamation
 
         return $this;
     }
+
+    public function getEtatReclamation(): ?string
+    {
+        return $this->etat_reclamation;
+    }
+
+    public function setEtatReclamation(string $etat_reclamation): self
+    {
+        $this->etat_reclamation = $etat_reclamation;
+
+        return $this;
+    }
+  // config/packages/workflow.php
+//workflow
+
+/*private $stateMachine;
+
+
+public function someMethod(Reclamation $reclamation)
+{
+    $this->stateMachine->apply($reclamation, 'wait_for_review', [
+        'log_comment' => 'My logging comment for the wait for review transition.',
+    ]);
+    // ...
+}*/
 }

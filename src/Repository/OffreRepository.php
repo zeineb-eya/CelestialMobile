@@ -56,9 +56,24 @@ class OffreRepository extends ServiceEntityRepository
 
     }
 
-
-
     public function orderByReductionOffre()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.reduction', 'DESC')
+           // ->setMaxResults(3)
+            ->getQuery()->getResult();
+    }
+
+    public function orderByReductionOffreA()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.reduction', 'ASC')
+           // ->setMaxResults(3)
+            ->getQuery()->getResult();
+    }
+
+
+    public function orderByEmail()
     {
         return $this->createQueryBuilder('o')
             ->orderBy('o.reduction', 'DESC')
