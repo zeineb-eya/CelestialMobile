@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
             $sms = new SMS($client);
             $sms->message('You made an account with us')
             ->from('+21627300520')
-            ->to('+21627300520')
+            ->to($user->getNumeroUtilisateur())
             ->send();
 
             // generate a signed url and email it to the user

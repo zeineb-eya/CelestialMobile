@@ -2,6 +2,9 @@
     "bacon/bacon-qr-code": {
         "version": "2.0.6"
     },
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "dasprid/enum": {
         "version": "1.0.3"
     },
@@ -118,6 +121,21 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "./config/packages/fos_ckeditor.yaml"
+        ]
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v3.5.0"
+    },
     "gregwar/captcha": {
         "version": "v1.1.9"
     },
@@ -132,6 +150,9 @@
     },
     "guzzlehttp/psr7": {
         "version": "2.1.0"
+    },
+    "imagine/imagine": {
+        "version": "1.2.4"
     },
     "knplabs/knp-components": {
         "version": "v3.4.0"
@@ -159,6 +180,19 @@
     },
     "league/oauth2-google": {
         "version": "4.0.0"
+    },
+    "liip/imagine-bundle": {
+        "version": "2.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
+        },
+        "files": [
+            "./config/packages/liip_imagine.yaml",
+            "./config/routes/liip_imagine.yaml"
+        ]
     },
     "mediumart/orange-sms": {
         "version": "2.0.0"
