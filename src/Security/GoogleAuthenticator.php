@@ -6,6 +6,7 @@ use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient;
+use League\OAuth2\Client\Provider\GoogleUser;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class GoogleAuthenticator extends SocialAuthenticator
     public function supports(Request $request)
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
-        return $request->attributes->get('_route') === 'connect_facebook_check';
+        return $request->getPathInfo() === '/connect/google/check';
     }
 
     public function getCredentials(Request $request)
@@ -42,35 +43,30 @@ class GoogleAuthenticator extends SocialAuthenticator
         //     return null;
         // }
 
-        return $this->fetchAccessToken($this->getFacebookClient());
+        return $this->fetchAccessToken($this->getGoogleClient());
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         /** @var GoogleUser $facebookUser */
-        $facebookUser = $this->getGoogleClient()
+        $googleUser = $this->getGoogleClient()
             ->fetchUserFromToken($credentials);
 
-        $email = $facebookUser->getEmail();
+        $email = $googleUser->getEmail();
 
         // 1) have they logged in with Facebook before? Easy!
-        $existingUser = $this->em->getRepository(User::class)
-            ->findOneBy(['facebookId' => $facebookUser->getId()]);
-        if ($existingUser) {
-            return $existingUser;
-        }
-
-        // 2) do we have a matching user by email?
         $user = $this->em->getRepository(User::class)
-            ->findOneBy(['email' => $email]);
-
-        // 3) Maybe you just want to "register" them by creating
-        // a User object
-        $user->setGoogleId($facebookUser->getId());
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return $user;
+            ->findOneBy(['mail_utilisateur' => $mail_utilisateur]);
+        if (!$user) {
+            $user = new User();
+            $user->setMailUtilisateur($googleUser->getEmail());
+            $user->setNomUtilisateur($googleUser-getName());
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+            return $user;
+       
+         
     }
 
     /**
@@ -107,10 +103,8 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse(
-            '/connect/', // might be the site, where users choose their oauth provider
-            Response::HTTP_TEMPORARY_REDIRECT
-        );
+        return new RedirectResponse('/login'); // might be the site, where users choose their oauth provider
+           
     }
 
     // ...

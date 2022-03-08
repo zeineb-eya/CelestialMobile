@@ -22,12 +22,18 @@ security:
                 # "login" is the name of the route created previously
                 login_path: login
                 check_path: login
+                default_target_path: login
+                always_use_default_target_path: true
+                csrf_parameter: _csrf_security_token
+                csrf_token_id: a_private_string
                       
 
             guard:
+                entry_point: App\Security\UsersAuthenticator
                 authenticators:
-                   # - App\Security\GoogleAuthenticator
                    - App\Security\UsersAuthenticator
+                   - App\Security\GoogleAuthenticator
+
 
             logout:
                 path: app_logout
