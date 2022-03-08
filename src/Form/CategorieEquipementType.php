@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
+
 
 
 class CategorieEquipementType extends AbstractType
@@ -23,6 +25,7 @@ class CategorieEquipementType extends AbstractType
                     'Eco-friendly' => 'Eco-friendly',
                 ],
             ])
+            ->add('captcha', CaptchaType::class)
         ;
     }
 

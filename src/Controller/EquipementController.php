@@ -116,7 +116,9 @@ class EquipementController extends AbstractController
             $sms = new SMS($client);
             $sms->message('Une Categorie a ete ajoutee . Consulez notre site !')
             ->from('+21627300520')
-            ->to('+21626061992')
+            //>to($User->getNumTel()) on n a pas fais ce choix a cause du cout SMS
+                   
+            ->to('+21628327313')
             ->send();
 
             return $this->redirectToRoute('equipement_index', [], Response::HTTP_SEE_OTHER);

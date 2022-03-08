@@ -27,7 +27,7 @@
                 <td>{{ equipement.etatEquipement }}</td>
                 <td>{{ equipement.descriptionEquipement }}</td>
                 <td>{{ equipement.categorieEquipement }}</td>
-                <td><img src ="{{ '../uploads/' ~ equipement.imageEquipement }}"style="width: 250px; height: 250px"
+                <td><img src ="{{ '../uploads/images/' ~ equipement.imageEquipement }}"style="width: 250px; height: 250px"
                 ></td>
                 <td>
                     <a href="{{ path('equipement_show', {'id': equipement.id}) }}">show</a>

@@ -2,10 +2,10 @@
 {% block body %}
 <!DOCTYPE html>
 <html>
-  <h1>Lists of Equipments !</h1>
+  <h1>La liste des equipements !</h1>
     <div class="album py-5 bg-light">
         <div class="container">
-        <h2>Search An Equipment !!</h2>
+        <h2>Rechercher un equipement !!</h2>
 <head>
 	<title></title>
 </head>
@@ -57,7 +57,7 @@
                                         if (id != 'error') {
                                              
                                             console.log(id , value)
-                                            entitySelector.append('<li><b>'+value[0]+'</b><a href="/equipementt/'+id+'">'+'<img src="/uploads/images:'+value[4]+'" style="width: 50px; height: 50px"/>'+'</a></li>');
+                                            entitySelector.append('<li><b>'+value[0]+'</b><a href="/equipementt/'+id+'">'+'<img src="/uploads/images/'+value[4]+'" style="width: 50px; height: 50px"/>'+'</a></li>');
                                                     
                                                     
                                         } else {
@@ -92,11 +92,12 @@
                         <div class="featured-box">
                             <figure>
 
-                            <a href="{{ path('equipement_show',{'id': equipement.id}) }}"><img class="img-fluid" src="{{ '../uploads/images/' ~ equipement.imageEquipement }}" alt=""style="width: 250px; height: 250px"></a>
+
+                            <a href="#"><img class="img-fluid" src="{{ '../uploads/images/' ~ equipement.imageEquipement }}" alt=""style="width: 250px; height: 250px"></a>
                             </figure>
                             <div class="content-wrapper">
                                 <div class="feature-content">
-                            <h4><a href="{{ path('equipement_show',{'id': equipement.id}) }}">{{ equipement.nomEquipement }}</a></h4> 
+                            <h4><a href="#">{{ equipement.nomEquipement }}</a></h4> 
                             <p class="listing-tagline">Description: {{ equipement.descriptionEquipement }}</p>
                             <div class="meta-tag">
                                         <div class="user-name">
@@ -108,7 +109,6 @@
                                 </div>
                                 <div class="listing-bottom clearfix">
                                     <div class="btn-group">
-                                        <a href="{{ path('equipement_show',{'id': equipement.id}) }}"><button type="button" class="btn btn-sm btn-outline-primary">View</button></a>
 
                                     </div>
                                 </div>
@@ -131,6 +131,6 @@
 </div>
 </body>
 </html>
-<table><td><img src="{{ qr_code_url(app.request.uri)}}" style="width: 250px; height: 250px"/></td><td>   Scan our QR Code</td></table>
+<table><td><img src="{{ qr_code_url(app.request.uri)}}" style="width: 250px; height: 250px"/></td><td>   Scannez notre code QR</td></table>
 {% endblock %}
 
