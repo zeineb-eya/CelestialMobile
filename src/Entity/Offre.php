@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Planinng;
 use App\Repository\OffreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +18,7 @@ class Offre
      * @ORM\Column(type="integer")
      */
     private $id;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Do not leave empty"),
@@ -30,6 +30,11 @@ class Offre
      * )
      */
     private $nom_offre;
+    
+  /*  public function __toString() : string {
+        return $this->nom_offre;
+    }*/
+   
 
     /**
      * @ORM\Column(type="text")
@@ -78,18 +83,14 @@ class Offre
 
     private $date_debut_offre;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Planinng::class, inversedBy="offres")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $planning;
+   
 
     /**
      * @ORM\Column(name="date_fin_offre", type="date", nullable=true)
      * @Assert\Date()
      * @Assert\GreaterThan("Yesterday")
      * @Assert\LessThan("+364 days")
-     * Assert\NotNull()
+     
      *Assert\NotBlank()
      */
     private $date_fin_offre;
@@ -105,8 +106,6 @@ class Offre
     }
     }
 
-
-  
     public function getId(): ?int
     {
         return $this->id;
@@ -161,8 +160,7 @@ class Offre
 
         return $this;
     }
-
-
+    
 
 
 
@@ -178,17 +176,7 @@ class Offre
         return $this;
     }
 
-    public function getPlanning(): ?Planinng
-    {
-        return $this->planning;
-    }
-
-    public function setPlanning(?Planinng $planning): self
-    {
-        $this->planning = $planning;
-
-        return $this;
-    }
+   
 
     public function getDateFinOffre(): ?\DateTimeInterface
     {
@@ -201,6 +189,5 @@ class Offre
 
         return $this;
     }
-
-    
+   
 }
