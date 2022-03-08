@@ -8,22 +8,7 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 			<meta name="description" content="">
 			<meta name="author" content="">
-<!--===============================================================================================-->	
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
+
 
 			{% block stylesheets %}
 				<!-- Custom fonts for this template-->
@@ -51,9 +36,10 @@
 				class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-					<div class="sidebar-brand-icon rotate-n-15">
-						<i class="fas fa-laugh-wink"></i>
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('home') }}">
+					<div class="sidebar-brand-icon">
+						{#<i class="fas fa-laugh-wink"></i>#}
+						<img src="{{ asset ('Front/img/logo.png')}}" alt="..." width="50">
 					</div>
 					<div class="sidebar-brand-text mx-3">Celestial Dashboard
 
@@ -66,7 +52,7 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item active">
-					<a class="nav-link" href="index.html">
+					<a class="nav-link" href="{{ path('home') }}">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
 						<span>Dashboard</span>
 					</a>
@@ -107,10 +93,8 @@
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Gestion de Voyages:</h6>
-							
 							<a class="collapse-item" href="{{path('planinng_index')}}">Planning</a>
 							<a class="collapse-item" href="{{path('localisation_index')}}">Localisation</a>
-
 
 						</div>
 					</div>
@@ -209,17 +193,7 @@
 					<i class="fa fa-bars"></i>
 				</button>
 
-				<!-- Topbar Search -->
-				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">
-								<i class="fas fa-search fa-sm"></i>
-							</button>
-						</div>
-					</div>
-				</form>
+				
 
 				<!-- Topbar Navbar -->
 				<ul
@@ -362,7 +336,10 @@
 					<!-- Nav Item - User Information -->
 					<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">{#{% if app.user %}
+											{{ app.user.firstname }}
+											{{ app.user.lastname }}
+										{% endif %}#}</span>
 
 							<img class="img-profile rounded-circle" src="{{ asset ('backF/assets/img/undraw_profile.svg')}}">
 						</a>
@@ -395,6 +372,11 @@
 				<div class="col-lg-6 mb-4"></div>
 			</div><!-- Main Content --><div
 				id="content">
+				{% for message in app.flashes('success') %}
+						<div class="alert alert-success">
+							{{ message }}
+						</div>
+					{% endfor %}
 				<!-- /.container-fluid -->
 				{% block body %}{% endblock %}
 			</div><!-- End of Main Content -->{% block footer %}
