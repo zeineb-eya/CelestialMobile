@@ -103,7 +103,7 @@ class PostController extends AbstractController
             
             //$contact = $form->getData();
             $message = (new \Swift_Message('you got mail  +++')) 
-                        ->setFrom('zaineb.bachouch@esprit.tn')
+                        ->setFrom('celestialservice489@gmail.com')
                         ->setTo('yacoubi.fatima@esprit.tn')
                         ->setBody('new article','text/html') ;
             $mailer->send($message);

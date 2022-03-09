@@ -39,7 +39,7 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="commentaires", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $post;

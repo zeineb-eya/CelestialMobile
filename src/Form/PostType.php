@@ -18,7 +18,7 @@ class PostType extends AbstractType
                 'mapped' => false
              ] )
             ->add('description_post',CKEditorType::class)
-            ->add('user')
+           // ->add('user')
             ->add('categoriePost')
         ;
     }

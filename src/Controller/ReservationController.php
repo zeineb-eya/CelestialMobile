@@ -46,7 +46,7 @@ class ReservationController extends AbstractController
               // Define the page parameter
               $request->query->getInt('page', 1),
               // Items per page
-              5
+              1
           );
           return $this->render('reservation/index.html.twig', [
             //  'reservations' => $reservationRepository->findAll(),
