@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>localisation</th>
+          
                 <th>Embarquement</th>
                 <th>Chair_billet</th>
                 <th>Voyage_num</th>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{ billet.id }}</td>
                 <td>{{ billet.localisation }}</td>
+          
                 <td>{{ billet.embarquement ? billet.embarquement|date('Y-m-d') : '' }}</td>
                 <td>{{ billet.chairBillet }}</td>
                 <td>{{ billet.voyageNum }}</td>
