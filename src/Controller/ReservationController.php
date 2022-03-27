@@ -92,12 +92,12 @@ class ReservationController extends AbstractController
        // $billet = $this->getBillet();
       // $billet=$this->getDoctrine()->getRepository(Billet::class)->findBy(array('reservation' => $id));
        $billet = $em->getRepository(Billet::class)->find($id);
-      
+       $Etat_reservation = 'waiting for a confirmation';
        //$reservation->setUser($request->get('user'));
         $reservation->setUser($user);
         $reservation->setBillet($billet);
         $reservation->setDateReservation($date_reservation);
-        $reservation->setEtatReservation($request->get('Etat_reservation'));
+        $reservation->setEtatReservation($Etat_reservation);
 
         $em->persist($reservation);
         $em->flush();
@@ -119,12 +119,13 @@ class ReservationController extends AbstractController
         $billet = $em->getRepository(Billet::class)->find($billet_id);
         $date_reservation = new \DateTime("now");
         $user = $em->getRepository(User::class)->find($user);
+        $Etat_reservation = 'waiting for a confirmation';
        // $reservation->setUser($request->get('user'));
         //$reservation->setBillet($request->get('billet'));
         $reservation->setUser($user);
         $reservation->setBillet($billet);
         $reservation->setDateReservation($date_reservation);
-        $reservation->setEtatReservation($request->get('Etat_reservation'));
+        $reservation->setEtatReservation($Etat_reservation);
 
         $em->persist($reservation);
         $em->flush();
