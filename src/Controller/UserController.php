@@ -228,11 +228,8 @@ public function updateUserJSON ( Request $request, NormalizerInterface $Normaliz
     $Role = $em->getRepository(User::class)->find($id);
     $Role->setNomUtilisateur($request->get('nom_utilisateur'));
        $Role->setPrenomUtilisateur($request->get('prenom_utilisateur'));
-       $Role->setAdresseUtilisateur($request->get('adresse_utilisateur'));
        $Role->setMailUtilisateur($request->get('mail_utilisateur'));
-       $Role->setSudoUtilisateur($request->get('sudo_utilisateur'));
-       $Role->setPassword($request->get('password'));
-       $Role->setNumeroUtilisateur($request->get('Numero_utilisateur'));
+    
     $em->flush();
     $jsonContent= $Normalizer->normalize($Role,'json',['groups'=>"post:read"]);
     return new Response("Information updated successfully".json_encode($jsonContent));

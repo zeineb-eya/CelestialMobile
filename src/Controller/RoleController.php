@@ -139,7 +139,8 @@ public function updateRoleJSON ( Request $request, NormalizerInterface $Normaliz
 public function deleteRoleJSON(Request $request, NormalizerInterface $Normalizer, $id)
 {$em = $this->getDoctrine()->getManager(); 
 $Role = $em->getRepository (Role::class)->find($id); 
-$em->remove($Role); $em->flush(); 
-$jsonContent= $Normalizer->normalize($Role,'json',['groups'=>'post:read']); 
-return new Response("Student deleted successfully".json_encode($jsonContent));
+$em->remove($Role);
+$em->flush(); 
+$jsonContent = $Normalizer->normalize($Role, 'json',['groups'=>'post:read']); 
+return new Response ("Role deleted successfully".json_encode($jsonContent));
 }}
