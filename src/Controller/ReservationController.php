@@ -18,8 +18,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Serializer;
+
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 // Include paginator interface
 use Knp\Component\Pager\PaginatorInterface;
+
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * @Route("/reservation")
@@ -55,7 +67,182 @@ class ReservationController extends AbstractController
        
     }
 
-        /**
+
+    /*****************************************************************************************************/
+    /**
+     * @Route("/AllReservations/json", name="AllReservations")
+     */
+    public function AllReservations(ReservationRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $reservations= $rep->findAll();
+
+        $json= $serilazer->serialize($reservations,'json',['groups'=>"reservation:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/AddReservations/json/{user}/{id}", name="AddReservations")
+     */
+    public function AddReservationsJSON(User $user,Billet $id,Request $request,SerializerInterface $serilazer, EntityManagerInterface $em)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reservation = new Reservation();
+        $date_reservation = new \DateTime("now");
+       // $user = $this->getUser();
+        $user = $em->getRepository(User::class)->find($user);
+       // $billet = $this->getBillet();
+      // $billet=$this->getDoctrine()->getRepository(Billet::class)->findBy(array('reservation' => $id));
+       $billet = $em->getRepository(Billet::class)->find($id);
+       $Etat_reservation = 'waiting for a confirmation';
+       //$reservation->setUser($request->get('user'));
+        $reservation->setUser($user);
+        $reservation->setBillet($billet);
+        $reservation->setDateReservation($date_reservation);
+        $reservation->setEtatReservation($Etat_reservation);
+
+        $em->persist($reservation);
+        $em->flush();
+
+       $jsonContent= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+       return new Response(json_encode($jsonContent));
+
+
+    }
+
+    /**
+     * @Route("/UpdateReservations/json/{id}/{user}/{billet_id}", name="UpdateReservations")
+     */
+    public function UpdateReservationsJSON(Request $request,SerializerInterface $serilazer,$id,Billet $billet_id,User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $reservation = $em->getRepository(Reservation::class)->find($id);
+        $billet = $em->getRepository(Billet::class)->find($billet_id);
+        $date_reservation = new \DateTime("now");
+        $user = $em->getRepository(User::class)->find($user);
+        $Etat_reservation = 'waiting for a confirmation';
+       // $reservation->setUser($request->get('user'));
+        //$reservation->setBillet($request->get('billet'));
+        $reservation->setUser($user);
+        $reservation->setBillet($billet);
+        $reservation->setDateReservation($date_reservation);
+        $reservation->setEtatReservation($Etat_reservation);
+
+        $em->persist($reservation);
+        $em->flush();
+        $jsonContent= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+        return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/DetailReservations/json/{id}/{user}", name="DetailReservations")
+     */
+    public function DetailReservationsJSON(Request $request,SerializerInterface $serilazer,$id/*, User $user*/):Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+      // $user= $em->getRepository(User::class)->find($user);
+        $reservation= $em->getRepository(Reservation::class)->find($id);
+        $user = $this->getUser();
+        $json= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+
+    /**
+     * @Route("/DeleteReservations/json/{id}", name="DeleteReservations")
+     */
+    public function DeleteReservationsJSON(Request $request,SerializerInterface $serilazer,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $reservation = $em->getRepository(Reservation::class)->find($id);
+        $em->remove($reservation);
+        $em->flush();
+        $jsonContent= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+        return new Response(json_encode($jsonContent));;
+    }
+    /**
+     * @Route("/listReservationByDate/api/showOrdered", name="api_Reservations_showOrderedByDate")
+     */
+    public function showOrderedReservationsByDate(ReservationRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $reservationsByDate = $rep->orderByDate();
+
+        $serializer = new Serializer([new DateTimeNormalizer(), new ObjectNormalizer()]);
+       $json= $serilazer->serialize($reservationsByDate,'json',['groups'=>"reservation:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/listReservationByMail/api/showOrdered", name="api_Reservations_showOrderedByMail")
+     */
+    public function showOrderedReservationsByMail(ReservationRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $reservationsByDate = $rep->orderByMail();
+
+        $serializer = new Serializer([new DateTimeNormalizer(), new ObjectNormalizer()]);
+       $json= $serilazer->serialize($reservationsByDate,'json',['groups'=>"reservation:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/listReservationByEtat/api/showOrdered", name="api_Reservations_showOrderedByEtat")
+     */
+    public function showOrderedReservationsByEtat(ReservationRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $reservationsByDate = $rep->orderByEtat();
+
+        $serializer = new Serializer([new DateTimeNormalizer(), new ObjectNormalizer()]);
+       $json= $serilazer->serialize($reservationsByDate,'json',['groups'=>"reservation:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/traiterreservation/api/{id}/{user}/{billet_id}",name="traiterreservation_api")
+     */
+    public function traiterreservationAPI(Billet $billet_id,User $user,$id,SerializerInterface $serilazer,Request $request, ReservationRepository $Rep,Reservation $reservation, \Swift_Mailer $mailer ): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $billet = $entityManager->getRepository(Billet::class)->find($billet_id);
+        $user = $entityManager->getRepository(User::class)->find($user);
+       
+        $reservation = $entityManager->getRepository(Reservation::class)->find($id);
+        $reservation->setEtatReservation("confirmed");
+        $entityManager->flush();
+        $form = $this->createForm(ReservationEmailType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+           // Ici nous enverrons l'e-mail
+            $message = (new \Swift_Message('Celestial Reservation Confirmation') )
+            //On attribue l'expediteur
+            ->setFrom('celestialservice489@gmail.com')
+            // destinataire
+            ->setTo($contact['email'])
+            // le contenu de notre msg avec Twig
+            ->setBody("Your Reservation has been confirmed enjoy your trip!!!",'text/html') ;
+            //on envoie le msg
+            $mailer->send($message);
+            $this->addFlash('message', 'le message a ete envoye');
+            $mailer->send($message);
+            $this->addFlash('success', 'It sent!');
+        }
+          
+            $jsonContent= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+            return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/cancelreservation/api/{id}/{user}/{billet_id}",name="cancelreservation_api")
+     */
+    public function cancelreservationAPI(Billet $billet_id,User $user,SerializerInterface $serilazer,Request $request, ReservationRepository $Rep,Reservation $reservation): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $billet = $entityManager->getRepository(Billet::class)->find($billet_id);
+        $user = $entityManager->getRepository(User::class)->find($user);
+       
+        $reservation->setEtatReservation("cancelled");
+        $entityManager->flush();
+        $jsonContent= $serilazer->serialize($reservation,'json',['groups'=>"reservation:read"]);
+        return new Response(json_encode($jsonContent));
+    }
+    /*****************************************************************************************************/
+
+     /**
      * @Route("/listReservationByDate", name="listReservationByDate", methods={"GET"})
      */
     public function listReservationByDate(ReservationRepository $repo)

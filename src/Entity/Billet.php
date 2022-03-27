@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-//use Symfony\Component\Serilaize\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BilletRepository::class)
@@ -18,6 +18,7 @@ class Billet
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("billet:read")
      */
     private $id;
  
@@ -29,6 +30,7 @@ class Billet
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Assert\Positive
+     * @Groups("billet:read")
      */
     private $chair_billet;
 
@@ -40,6 +42,7 @@ class Billet
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Assert\Positive
+     * @Groups("billet:read")
      */
     private $voyage_num;
  
@@ -52,6 +55,7 @@ class Billet
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Assert\Positive
+     * @Groups("billet:read")
      */
     private $terminal;
 
@@ -63,6 +67,7 @@ class Billet
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Assert\Positive
+     * @Groups("billet:read")
      */
     private $portail;
 
@@ -71,6 +76,7 @@ class Billet
      * @Assert\NotBlank(message="Do not leave empty")
      * @Assert\Date()
      * @Assert\GreaterThan("today")
+     * @Groups("billet:read")
      */
     private $embarquement;
 
@@ -79,6 +85,7 @@ class Billet
     /**
      * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="billet")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("billet:read")
      */
     private $localisation;
 
@@ -90,7 +97,7 @@ class Billet
     public function __construct()
     {
         $this->reservation = new ArrayCollection();
-        $this->embarquement = new \DateTime('now');
+        $this->embarquement = new \DateTime('Tomorrow');
     }
 
     public function getId(): ?int

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
@@ -17,11 +18,13 @@ class Reservation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("reservation:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("reservation:read")
      */
     private $date_reservation;
 
@@ -29,17 +32,20 @@ class Reservation
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("reservation:read")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Billet::class, inversedBy="reservation")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("reservation:read")
      */
     private $billet;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("reservation:read")
      */
     private $Etat_reservation;
    
@@ -49,6 +55,7 @@ class Reservation
     public function __construct()
     {
     $this->date_reservation = new \DateTime('now');
+    $this->Etat_reservation = 'waiting for a confirmation';
     }
 
 

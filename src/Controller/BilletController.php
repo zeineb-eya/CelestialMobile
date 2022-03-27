@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Billet;
 use App\Entity\Reservation;
+use App\Entity\Localisation;
 use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
@@ -14,6 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -54,7 +58,88 @@ class BilletController extends AbstractController
         ]);
        
     }
-     
+    /*****************************************************************************************************/
+    /**
+     * @Route("/AllBillets/json", name="AllBillets")
+     */
+    public function AllBillets(BilletRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $billets= $rep->findAll();
+
+        $json= $serilazer->serialize($billets,'json',['groups'=>"billet:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/AddBillets/json/{id}", name="AddBillets")
+     */
+    public function AddBilletsJSON(Request $request,SerializerInterface $serilazer,Localisation $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $billet = new Billet();
+        $embarquement = new \DateTime("Tomorrow");
+       // $localisation = $this->getLocalisation();
+        $localisation = $em->getRepository(Localisation::class)->find($id);
+        $billet->setChairBillet($request->get('chair_billet'));
+        $billet->setVoyageNum($request->get('voyage_num'));
+        $billet->setTerminal($request->get('terminal'));
+        $billet->setPortail($request->get('portail'));
+        $billet->setEmbarquement($embarquement);
+        $billet->setLocalisation($localisation);
+
+        $em->persist($billet);
+        $em->flush();
+
+        $jsonContent= $serilazer->serialize($billet,'json',['groups'=>"billet:read"]);
+        return new Response(json_encode($jsonContent));
+        //$serializer = new Serializer([new ObjectNormalizer()]);
+       // $formatted = $serializer->normalize($billet);
+      //  return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/UpdateBillets/json/{id}/{localisation_id}", name="UpdateBillets")
+     */
+    public function UpdateBilletsJSON(Request $request,SerializerInterface $serilazer,$id,Localisation $localisation_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $embarquement = new \DateTime("Tomorrow");
+        
+        $billet = $em->getRepository(Billet::class)->find($id);
+        $localisation = $em->getRepository(Localisation::class)->find($localisation_id);
+        
+        $billet->setChairBillet($request->get('chair_billet'));
+        $billet->setVoyageNum($request->get('voyage_num'));
+        $billet->setTerminal($request->get('terminal'));
+        $billet->setPortail($request->get('portail'));
+        $billet->setEmbarquement($embarquement);
+        $billet->setLocalisation($localisation);
+        $em->flush();
+        $jsonContent= $serilazer->serialize($billet,'json',['groups'=>"billet:read"]);
+        return new Response(json_encode($jsonContent));;
+    }
+    /**
+     * @Route("/DetailBillets/json/{id}", name="DetailBillets")
+     */
+    public function DetailBilletsJSON(Request $request,SerializerInterface $serilazer,$id):Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $billets= $em->getRepository(Billet::class)->find($id);
+      $json= $serilazer->serialize($billets,'json',['groups'=>"billet:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
+    /**
+     * @Route("/DeleteBillets/json/{id}", name="DeleteBillets")
+     */
+    public function DeleteBilletsJSON(Request $request,SerializerInterface $serilazer,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $billet = $em->getRepository(Billet::class)->find($id);
+        $em->remove($billet);
+        $em->flush();
+        $jsonContent= $serilazer->serialize($billet,'json',['groups'=>"billet:read"]);
+        return new Response(json_encode($jsonContent));;
+    }
+    /*****************************************************************************************************/
     /**
      * @Route("/billets", name="billet_front", methods={"GET"})
      */
