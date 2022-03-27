@@ -82,12 +82,13 @@ class ReservationController extends AbstractController
     /**
      * @Route("/AddReservations/json/{user}/{id}", name="AddReservations")
      */
-    public function AddReservationsJSON(Billet $id,Request $request,SerializerInterface $serilazer, EntityManagerInterface $em)
+    public function AddReservationsJSON(User $user,Billet $id,Request $request,SerializerInterface $serilazer, EntityManagerInterface $em)
     {
         $em = $this->getDoctrine()->getManager();
         $reservation = new Reservation();
         $date_reservation = new \DateTime("now");
-        $user = $this->getUser();
+       // $user = $this->getUser();
+        $user = $em->getRepository(User::class)->find($user);
        // $billet = $this->getBillet();
       // $billet=$this->getDoctrine()->getRepository(Billet::class)->findBy(array('reservation' => $id));
        $billet = $em->getRepository(Billet::class)->find($id);
@@ -110,14 +111,14 @@ class ReservationController extends AbstractController
     /**
      * @Route("/UpdateReservations/json/{id}/{user}/{billet_id}", name="UpdateReservations")
      */
-    public function UpdateReservationsJSON(Request $request,SerializerInterface $serilazer,$id,Billet $billet_id)
+    public function UpdateReservationsJSON(Request $request,SerializerInterface $serilazer,$id,Billet $billet_id,User $user)
     {
         $em = $this->getDoctrine()->getManager();
 
         $reservation = $em->getRepository(Reservation::class)->find($id);
         $billet = $em->getRepository(Billet::class)->find($billet_id);
         $date_reservation = new \DateTime("now");
-        $user = $this->getUser();
+        $user = $em->getRepository(User::class)->find($user);
        // $reservation->setUser($request->get('user'));
         //$reservation->setBillet($request->get('billet'));
         $reservation->setUser($user);
