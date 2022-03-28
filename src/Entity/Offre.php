@@ -92,7 +92,7 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity=Planinng::class, inversedBy="offres")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups("offre:read")
      */
     private $planning;
