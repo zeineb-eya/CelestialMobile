@@ -34,6 +34,7 @@ import com.mycompany.myapp.gui.HomeForm;
 import com.mycompany.myapp.gui.HomeReservationForm;
 import com.mycompany.myapp.gui.HomePlaninngForm;
 import com.mycompany.myapp.gui.HomeLocalisationForm;
+import com.mycompany.myapp.gui.HomeReclamForm;
 
 /**
  * Common code that can setup the side menu
@@ -76,9 +77,10 @@ Form current;
         getToolbar().addMaterialCommandToSideMenu("  Billet", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReservationForm(current).show());
          getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
-  //  getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new AjoutReclamationForm(theme).show());
+  //  getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm().show());
+        getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
+        //getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Blog", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
