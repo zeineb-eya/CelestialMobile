@@ -45,7 +45,7 @@ public class ServiceOffre {
         System.out.println(o);
        
       // String url = Statics.BASE_URL + "offre/ajoutOffrejson/" + o.getNomOffre()+"?description_offre=" + o.getDescriptionOffre() + "&prix_offre=" + o.getPrixOffre()+ "&reduction=" + o.getReduction()+ "&date_debut_offre=" + o.getDateDebutOffre()+ "&date_fin_offre=" + o.getDateFinOffre();
-  String url = Statics.BASE_URL + "/offre/ajoutOffrejson?nom_offre="+o.getNomOffre()+"&description_offre="+o.getDescriptionOffre()+"&prix_offre="+o.getPrixOffre()+"&reduction="+o.getReduction()+"&date_debut_offre"+o.getDateDebutOffre()+"&date_fin_offre"+o.getDateFinOffre();
+  String url = Statics.BASE_URL + "/offre/AddOffres/json?nom_offre="+o.getNomOffre()+"&description_offre="+o.getDescriptionOffre()+"&prix_offre="+o.getPrixOffre()+"&reduction="+o.getReduction()+"&date_debut_offre"+o.getDateDebutOffre()+"&date_fin_offre"+o.getDateFinOffre();
     
        req.setUrl(url);
 
