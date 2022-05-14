@@ -28,8 +28,8 @@ public class StatistiqueReclamForm extends Form {
       Form current;
     ArrayList<Reclamation> reclamationArrayList = new ArrayList<>();
      ServiceReclamation reclamationService  = new ServiceReclamation();
-    int envoyee = 0;
-    int traitee = 0;
+    int envoyeNumber = 0;
+    int traiteNumber = 0;
    
 
     public StatistiqueReclamForm(Form previous) {
@@ -42,12 +42,12 @@ public class StatistiqueReclamForm extends Form {
      //   reclamationArrayList = ServiceReclamation.getAllReservations();
         for (Reclamation reclamation : reclamationArrayList) {
             if (reclamation.getEtatReclamation().equals("envoye"))                 
-                envoyee++;
+                envoyeNumber++;
             else if (reclamation.getEtatReclamation().equals("traite"))                 
-                traitee++;
+                traiteNumber++;
              
                    }
-        double[] values = new double[]{envoyee, traitee};
+        double[] values = new double[]{envoyeNumber, traiteNumber};
         int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN};
         DefaultRenderer renderer = buildCategoryRenderer(colors);
         renderer.setZoomButtonsVisible(true);
@@ -68,11 +68,7 @@ public class StatistiqueReclamForm extends Form {
         simpleSeriesRendererFilm.setGradientStop(0, ColorUtil.GREEN);
         simpleSeriesRendererFilm.setHighlighted(true);
         
-        SimpleSeriesRenderer simpleSeriesRendererCancelled = renderer.getSeriesRendererAt(2);
-        simpleSeriesRendererCancelled.setGradientEnabled(true);
-        simpleSeriesRendererCancelled.setGradientStart(0, ColorUtil.MAGENTA);
-        simpleSeriesRendererCancelled.setGradientStop(0, ColorUtil.MAGENTA);
-        simpleSeriesRendererCancelled.setHighlighted(true);
+       
         // Create the chart ... pass the values and renderer to the chart object.
         PieChart pieChart = new PieChart(buildCategoryDataset("Reclamation", values), renderer);
         // Wrap the chart in a Component so we can add it to a form
