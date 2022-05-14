@@ -118,8 +118,8 @@ public class ServiceReclamation {
   //delete reclam
       
         public boolean deleteReclamation(Reclamation r) {
-    
-        String url = Statics.BASE_URL + "/reclamation/deleteReclamationjson?id="+r.getId();
+
+        String url = Statics.BASE_URL + "/reclamation/deleteReclamationjson/"+r.getId();
         //création de l'URL
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {

@@ -76,7 +76,7 @@ Form current;
         getToolbar().addMaterialCommandToSideMenu("  locations", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeLocalisationForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Billet", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReservationForm(current).show());
-         getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
+         //getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
   //  getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm().show());
         getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
