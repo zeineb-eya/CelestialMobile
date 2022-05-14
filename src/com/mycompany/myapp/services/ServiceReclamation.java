@@ -137,8 +137,9 @@ public class ServiceReclamation {
          //update reclam
          
       public boolean modifReclamation(Reclamation r) { 
-              
-        String url = Statics.BASE_URL + "/reclamation/modifReclamationjson?id="+r.getId()+"&description_reclamation="+r.getDescriptionReclamation();
+           String url = Statics.BASE_URL + "/reclamation/modifReclamationjson/"+r.getId()+"?&description_reclamation="+r.getDescriptionReclamation();
+   
+      // String url = Statics.BASE_URL + "/reclamation/modifReclamationjson/" +"id="+r.getId()+"/"+"?description_reclamation="+r.getDescriptionReclamation();
 //création de l'URL
       
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion

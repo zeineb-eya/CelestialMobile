@@ -49,7 +49,12 @@ public class Reclamation {
         this.id = id;
         this.description_reclamation = description_reclamation;
     }
-    
+     public Reclamation(int id, int user,String description_reclamation) {
+         this.id = id;
+         this.user = user;
+        this.description_reclamation = description_reclamation;
+       
+    }
     
 
     public int getId() {

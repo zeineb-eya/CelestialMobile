@@ -28,12 +28,13 @@ public class ModifReclamForm extends Form{
 
         TextField tfID = new TextField(String.valueOf(r.getId()), "id_reclam");
         tfID.setVisible(false);
-        
+         // TextField tfuser= new TextField(String.valueOf(r.getUser()), "user");
         TextField tfdescription_reclamation= new TextField(String.valueOf(r.getDescriptionReclamation()), "description reclamation");
-         tfdescription_reclamation.setUIID("TextFieldBlack");
-        //TextField tfdate_reclamation= new TextField(String.valueOf(r.getDateReclamation()), "date reclamation");
-       // TextField tfetat_reclamation= new TextField(String.valueOf(r.getEtatReclamation()), "etat reclamation");
-      // TextField tfuser= new TextField(String.valueOf(r.getUser()), "");
+        // tfuser.setUIID("TextFieldBlack"); 
+        tfdescription_reclamation.setUIID("TextFieldBlack");
+        TextField tfdate_reclamation= new TextField(String.valueOf(r.getDateReclamation()), "date reclamation");
+        TextField tfetat_reclamation= new TextField(String.valueOf(r.getEtatReclamation()), "etat reclamation");
+       TextField tfuser= new TextField(String.valueOf(r.getUser()), "");
        
         Button btnModifierReclam = new Button("Modifier");
         Button next = new Button("retour");
@@ -45,15 +46,17 @@ public class ModifReclamForm extends Form{
                 } else {
                     System.out.println(tfID.getText());
                      System.out.println(tfdescription_reclamation.getText());
-                      //System.out.println(tfdate_reclamation.getText());
-                       //System.out.println(tfetat_reclamation.getText());
-                      //  System.out.println(tfuser.getText());
+                      System.out.println(tfdate_reclamation.getText());
+                       System.out.println(tfetat_reclamation.getText());
+                        System.out.println(tfuser.getText());
                  
                     // Offre o = new Offre(Integer.parseInt(tfID.getText()),tfnom_offre.getText(),tfdescription_offre.getText(), Integer.parseInt(tfprix_offre.getText()),Integer.parseInt(tfreduction.getText()),tfdate_debut_offre.getText().toString(),tfdate_fin_offre.getText().toString());
-                    Reclamation r = new Reclamation(Integer.parseInt(tfID.getText()),tfdescription_reclamation.getText().toString());
+                    Reclamation r = new Reclamation(Integer.parseInt(tfID.getText()),Integer.parseInt(tfuser.getText()),tfdescription_reclamation.getText().toString());
                     System.out.println(r.getId());
                     System.out.println(r.getDescriptionReclamation());
-                  //  System.out.println(r.getUser());
+                      System.out.println(r.getDateReclamation());
+                    System.out.println(r.getEtatReclamation());
+                 System.out.println(r.getUser());
                    
                     if (ServiceReclamation.getInstance().modifReclamation(r)) {
                         Dialog.show("Succes", "Réclamation modifié avec succés", new Command("OK"));
@@ -66,7 +69,7 @@ public class ModifReclamForm extends Form{
             }
         });
         next.addActionListener(e -> new ListReclamForm(current));
-        addAll(tfID,tfdescription_reclamation,btnModifierReclam,next);
+        addAll(tfID,tfdescription_reclamation,tfdate_reclamation,btnModifierReclam,next);
       
     }
 }
