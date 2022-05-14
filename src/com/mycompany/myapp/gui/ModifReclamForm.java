@@ -32,8 +32,8 @@ public class ModifReclamForm extends Form{
         TextField tfdescription_reclamation= new TextField(String.valueOf(r.getDescriptionReclamation()), "description reclamation");
         // tfuser.setUIID("TextFieldBlack"); 
         tfdescription_reclamation.setUIID("TextFieldBlack");
-        TextField tfdate_reclamation= new TextField(String.valueOf(r.getDateReclamation()), "date reclamation");
-        TextField tfetat_reclamation= new TextField(String.valueOf(r.getEtatReclamation()), "etat reclamation");
+       // TextField tfdate_reclamation= new TextField(String.valueOf(r.getDateReclamation()), "date reclamation");
+      //  TextField tfetat_reclamation= new TextField(String.valueOf(r.getEtatReclamation()), "etat reclamation");
        TextField tfuser= new TextField(String.valueOf(r.getUser()), "");
        
         Button btnModifierReclam = new Button("Modifier");
@@ -46,8 +46,8 @@ public class ModifReclamForm extends Form{
                 } else {
                     System.out.println(tfID.getText());
                      System.out.println(tfdescription_reclamation.getText());
-                      System.out.println(tfdate_reclamation.getText());
-                       System.out.println(tfetat_reclamation.getText());
+                    //  System.out.println(tfdate_reclamation.getText());
+                     //  System.out.println(tfetat_reclamation.getText());
                         System.out.println(tfuser.getText());
                  
                     // Offre o = new Offre(Integer.parseInt(tfID.getText()),tfnom_offre.getText(),tfdescription_offre.getText(), Integer.parseInt(tfprix_offre.getText()),Integer.parseInt(tfreduction.getText()),tfdate_debut_offre.getText().toString(),tfdate_fin_offre.getText().toString());
@@ -69,7 +69,7 @@ public class ModifReclamForm extends Form{
             }
         });
         next.addActionListener(e -> new ListReclamForm(current));
-        addAll(tfID,tfdescription_reclamation,tfdate_reclamation,btnModifierReclam,next);
+        addAll(tfID,tfdescription_reclamation,btnModifierReclam,next);
       
     }
 }
