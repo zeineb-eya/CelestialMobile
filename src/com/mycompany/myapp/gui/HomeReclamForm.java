@@ -34,8 +34,8 @@ public class HomeReclamForm extends Form {
      btnAddReclamation.addActionListener(e-> new AjoutReclamForm().show());
      
      btnListReclamations.addActionListener(e-> new ListReclamForm(current));
-    //  btnStatReclam.addActionListener(e-> new StatistiqueReclamForm(current).show());
-      addAll(btnAddReclamation, btnListReclamations);
+   btnStatReclam.addActionListener(e-> new StatistiqueReclamForm(current).show());
+      addAll(btnAddReclamation, btnListReclamations,btnStatReclam);
           
      
      
