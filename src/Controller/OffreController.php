@@ -333,19 +333,45 @@ return $this->render('offre/index.html.twig', [
     
 /******************************JSON FINAL crud******************************* */
 
-    /*******************************json display **********************************/
-
-    /**********affichage JSON li temchi Finall ************** */
-    /**
-     * @Route("/AllOffres", name="AllOffress")
+ 
+ /************** Ajout offre li njreb feha tawa w temchiii Finalll**************/
+   
+     /**
+     * @Route("/AddOffres/json", name="AddOffres")
      */
-    public function displayOffrejson(OffreRepository $OffreRepository, SerializerInterface $serializer): Response
+    public function AddOffresJSON(Request $request,SerializerInterface $serilazer)
     {
-        $result = $OffreRepository->findAll();
-        $json = $serializer->serialize($result, 'json', ['groups' => 'offre:read']);
-        return new JsonResponse($json, 200, [], true);
+        $em = $this->getDoctrine()->getManager();
+        $offre = new Offre();
+        $offre->setNomOffre($request->get('nom_offre'));
+        $offre->setDescriptionOffre($request->get('description_offre'));
+        $offre->setPrixOffre($request->get('prix_offre'));
+        $offre->setReduction($request->get('reduction'));
+        $date_debut_offre  = new \DateTime("now");
+        $date_fin_offre  = new \DateTime("now");
+        $offre->setDateDebutOffre($date_debut_offre);
+        $offre->setDateFinOffre($date_fin_offre);
+     
+        $em->persist($offre);
+        $em->flush();
+
+        $jsonContent= $serilazer->serialize($offre,'json',['groups'=>"offre:read"]);
+        return new Response(json_encode($jsonContent));
+        
     }
 
+    /**********affichage JSON li temchi Finall ************** */
+   
+   /**
+     * @Route("/AllOffres/json", name="Alloffresjson")
+     */
+    public function AllOffresjson(OffreRepository $rep,SerializerInterface $serilazer):Response
+    {
+        $offres= $rep->findAll();
+
+        $json= $serilazer->serialize($offres,'json',['groups'=>"offre:read"]);
+        return new JsonResponse($json,200,[],true);
+    }
     //Tri par Reduction json ASC
 
     /**
@@ -363,39 +389,11 @@ return $this->render('offre/index.html.twig', [
      
 
     
-    /************** Ajout offre li njreb feha tawa w temchiii Finalll**************/
-    /**
-     * @Route("/ajoutOffrejson", name="ajoutOffrejson")
-     */
-    public function ajoutOffrejson(Request $request, SerializerInterface $serilazer, EntityManagerInterface $em)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $offre = new Offre();
-        $date_debut_offre  = new \DateTime("now");
-        $date_fin_offre  = new \DateTime("now");
-        $offre->setNomOffre($request->get('nom_offre'));
-        $offre->setDescriptionOffre($request->get('description_offre'));
-        $offre->setPrixOffre($request->get('prix_offre'));
-        $offre->setReduction($request->get('reduction'));
-        
-        $offre->setDateDebutOffre($date_debut_offre);
-        $offre->setDateFinOffre($date_fin_offre);
-        // $offre->setDateDebutOffre($request->get('date_debut_offre'));
-        //  $offre->setDateFinOffre($request->get('date_fin_offre'));
-
-        $em->persist($offre);
-        $em->flush();
-
-        $jsonContent = $serilazer->serialize($offre, 'json', ['groups' => "offre:read"]);
-        return new Response(json_encode($jsonContent));
-    }
-
-    
-
+   
     /*************Supprimer json li njreb feha w temchi c'est bon******* */
 
     /**
-     * @Route("/deleteOffrejson", name="delete_offrejson")
+     * @Route("/deleteOffrejson/{id}", name="delete_offrejson")
      * @Method("DELETE")
      */
 

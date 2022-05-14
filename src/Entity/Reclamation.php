@@ -68,6 +68,12 @@ class Reclamation
      private $etat_reclamation;
 
 
+     public function __construct()
+     {
+     $this->date_reclamation = new \DateTime('now');
+     $this->etat_reclamation = 'envoye';
+     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,11 +120,7 @@ class Reclamation
         return $this;
     }
 
-    public function __construct()
-    {
-    $this->date_reclamation = new \DateTime('now');
-    $this->etat_reclamation = 'envoye';
-    }
+
     public function getEtatReclamation(): ?string
     {
         return $this->etat_reclamation;

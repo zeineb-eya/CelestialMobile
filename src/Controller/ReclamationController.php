@@ -29,16 +29,8 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Knp\Component\Pager\PaginatorInterface; 
-
-
-
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-
-
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-
 use Symfony\Flex\Unpack\Result;
 
 /**
@@ -252,24 +244,7 @@ class ReclamationController extends AbstractController
         return new JsonResponse($json, 200, [], true);
     }
 
-    /************************Ajout JSON************* */
-
-    /**
-     * @Route("/addReclamationJSON/new", name="addReclamationJSON")
-     */
-    public function addReclamationJSON(Request $request, NormalizerInterface $Normalizer, EntityManagerInterface $em)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $reclamation = new Reclamation();
-        $reclamation->setDescriptionReclamation($request->get('description_reclamation'));
-        //$reclamation->setDateReclamation($request->get('date_reclamation'));
-        $reclamation->setDateReclamation((\DateTime::createFromFormat('d-m-Y H:i', '28-02-2022')));
-        $em->persist($reclamation);
-        $em->flush();
-        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'post:read']);
-        return new Response(json_encode(($jsonContent)));
-    }
+    
 
 
     /**********Récupere une reclam selon ID****************** */
@@ -432,19 +407,101 @@ class ReclamationController extends AbstractController
     }
      /*****************************************JSON FINAL crud********************************************************** */
 
-
-    /**********affichage JSON li temchi Finall ************** */
-    /**
-     * @Route("/AllReclamations", name="AllReclamationss")
-     */
-    public function displayReclamationjson(ReclamationRepository $ReclamationRepository, SerializerInterface $serializer): Response
-    {
-        $result = $ReclamationRepository->findAll();
-        $json = $serializer->serialize($result, 'json', ['groups' => 'reclamation:read']);
-        return new JsonResponse($json, 200, [], true);
-    }
+ /*******************JSON *******************/
 
     
+    /**************Add reclam li njreb beha tawa*************** */
+
+    /**
+     * @Route("addReclamationjson", name="add_reclamationjson")
+     * @Method("POST")
+     */
+
+    public function ajouterReclamationJson(Request $request, Reclamation $reclamation)
+    {
+        $reclamation = new Reclamation();
+        $description_reclamation = $request->query->get("description_reclamation");
+        $etat_reclamation = $request->query->get("etat_reclamation");
+        //  $user = $request->query->get("id_user");
+        $em = $this->getDoctrine()->getManager();
+        $date_reclamation = new \DateTime("now");
+
+        $reclamation->setDescriptionReclamation($description_reclamation);
+        $reclamation->setEtatReclamation($etat_reclamation);
+        $reclamation->setDateReclamation($date_reclamation);
+        //  $reclamation->setUser($user) ;
+
+        $em->persist($reclamation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamation);
+        return new JsonResponse($formatted);
+    }
+
+
+    /*************Modifier reclam li njreb feha ******* */
+    /**
+     * @Route("/updateReclamationjson", name="update_reclamationjson")
+     * @Method("PUT")
+     */
+
+    public function modifierReclamationjson(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        //$user = $em->getRepository(User::class)->find($user);
+
+        $reclamation = $this->getDoctrine()->getManager()
+            ->getRepository(Reclamation::class)
+            ->find($request->get("id"));
+
+        //  $reclamation->setUser($user);
+
+        $reclamation->setDescriptionReclamation($request->get("description_reclamation"));
+
+        $em->persist($reclamation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamation);
+        return new JsonResponse("reclamation bien modoifie");
+    }
+
+
+    /************************Ajout JSON li temchiliii ************* */
+
+    /**
+     * @Route("/addReclamationJSON/new/{user}", name="addReclamationJSON")
+     * @Method("POST")
+     */
+    public function addReclamationJSON(Request $request, NormalizerInterface $Normalizer, EntityManagerInterface $em)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $reclamation = new Reclamation();
+        $date_reclamation = new \DateTime("now");
+        $user = $this->getUser();
+
+        $reclamation->setDescriptionReclamation($request->get('description_reclamation'));
+        $reclamation->setEtatReclamation($request->get('etat_reclamation'));
+        $reclamation->setDateReclamation($date_reclamation);
+        // $id = $request->query->get("id_user");
+        // $reclamation->setUser($id) ;
+        $reclamation->setUser($user);
+        // $reclamation->setDateReclamation($request->get('id user'));
+        //  $reclamation->setDateReclamation($request->get('date_reclamation'));
+        //$reclamation->setDateReclamation((\DateTime::createFromFormat('d-m-Y H:i', '28-02-2022')));
+        /*  $em->persist($reclamation);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'post:read']);
+        return new Response(json_encode(($jsonContent)));
+*/
+        $em->persist($reclamation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamation);
+        return new JsonResponse($formatted);
+    }
+    /*****************************************JSON FINAL crud********************************************************** */
+
 
 /***************************Print*********************************** */
 
@@ -476,7 +533,7 @@ class ReclamationController extends AbstractController
       //  return new Response("the PDF file has benn succefully genrated");
     }
 
-
+   
     /************** Ajout reclam  b id li njreb feha tawa w temchiii Finalll**************/
     /**
      * @Route("/ajoutReclamationjson/{id}", name="ajoutReclamationjson")
@@ -486,12 +543,13 @@ class ReclamationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $reclamation = new Reclamation();
         $date_reclamation = new \DateTime("now");
+        $etat_reclamation = 'envoye';
         $user = $em->getRepository(User::class)->find($id);
 
         $reclamation->setUser($user);
         // $reclamation->setUser($user);
         $reclamation->setDescriptionReclamation($request->get('description_reclamation'));
-         $reclamation->setEtatReclamation("envoye");
+        $reclamation->setEtatReclamation($etat_reclamation);
         $reclamation->setDateReclamation($date_reclamation);
 
         $em->persist($reclamation);
@@ -500,11 +558,23 @@ class ReclamationController extends AbstractController
         $jsonContent = $serilazer->serialize($reclamation, 'json', ['groups' => "reclamation:read"]);
         return new Response(json_encode($jsonContent));
     }
+    
+    /**********affichage JSON li temchi Finall ************** */
+    /**
+     * @Route("/AllReclamations", name="AllReclamationss")
+     */
+    public function displayReclamationjson(ReclamationRepository $ReclamationRepository, SerializerInterface $serializer): Response
+    {
+        $result = $ReclamationRepository->findAll();
+        $json = $serializer->serialize($result, 'json', ['groups' => 'reclamation:read']);
+        return new JsonResponse($json, 200, [], true);
+    }
+
 
     /*************Supprimer json li njreb feha w temchi c'est bon******* */
 
     /**
-     * @Route("/deleteReclamationjson", name="delete_reclamationjson")
+     * @Route("/deleteReclamationjson/{id}", name="delete_reclamationjson")
      * @Method("DELETE")
      */
 
@@ -527,12 +597,37 @@ class ReclamationController extends AbstractController
 
     /*********update reclam B USER li nnrjeb feha Finall******** */
     /**
-     * @Route("/modifReclamationjson", name="modifReclamationjson")
+     * @Route("/modifReclamationjson/{id}", name="modifReclamationjson")
      * @Method("PUT")
      */
-    public function modifReclamationjson(Request $request)
+
+    
+   /* public function modifReclamationjson(Request $request,SerializerInterface $serilazer,$id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $reclamation = $em->getRepository(Reclamation::class)->find($id);
+       $date_reclamation = new \DateTime("now");
+     //   $user = $em->getRepository(User::class)->find($user);
+        $etat_reservation = 'waiting for a confirmation';
+       
+      //  $reclamation->setUser($user);
+        $reclamation->setDescriptionReclamation($request->get("description_reclamation"));
+       $reclamation->setDateReclamation($date_reclamation);
+    //$reclamation->setEtatReclamation($etat_reclamation);
+
+        $em->persist($reclamation);
+        $em->flush();
+        $jsonContent= $serilazer->serialize($reclamation,'json',['groups'=>"reclamation:read"]);
+        return new Response(json_encode($jsonContent));
+    }*/
+
+
+
+    public function modifReclamationjson(Request $request,$id)
+    {
+      
+       $em = $this->getDoctrine()->getManager();
 
         $reclamation = $this->getDoctrine()->getManager();
         $reclamation = $this->getDoctrine()->getManager()
@@ -544,31 +639,19 @@ class ReclamationController extends AbstractController
         $em->persist($reclamation);
         $em->flush();
 
-         
-       // $encoder = new JsonEncoder();
+      // $encoder = new JsonEncoder();
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
 
-       /* $serializer = new Serializer([$normalizer],[$encoder]);
-        $formatted = $serializer->normalize($reclamation);
-
-        return new JsonResponse($formatted);*/
-
-      //  return $this->json($result, Response::HTTP_OK, [], ['groups' => 'user','entreprise']);
-
-       /* $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($reclamation);
-*/
-       // return new JsonResponse("reclamation modifie avec succes");
       
         $serialize = new Serializer([new ObjectNormalizer()]);
         $formatted = $serialize->normalize("Reclamation modifie avec succes");
         return new JsonResponse($formatted);
     }
    
-
+    
 
     /******************Detail reclam li temchiii Finalll***** */
 
@@ -585,11 +668,7 @@ class ReclamationController extends AbstractController
         $json = $serilazer->serialize($reclamation, 'json', ['groups' => "reclamation:read"]);
         return new JsonResponse($json, 200, [], true);
     }
-
-     
-    
-
-    /**********************Te3 Front********************************** */
+     /**********************Te3 Front********************************** */
     /**
      * @Route("/reclamation/{id}", name="reclamation_showFront", methods={"GET"})
      */
@@ -603,5 +682,6 @@ class ReclamationController extends AbstractController
             'reclamation' => $reclamation,
         ]);
     }
+
     
 }
