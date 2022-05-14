@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 
 class UserController extends AbstractController
@@ -100,11 +102,9 @@ return new Response(json_encode($jsonContent));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                $userPasswordEncoder->encodePassword(
-                        $user,
                         $form->get('plainPassword')->getData()
                     )
-                );
+                ;
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -246,6 +246,28 @@ public function deleteUserJSON(Request $request, NormalizerInterface $Normalizer
     $jsonContent= $Normalizer->normalize($Role,'json',['groups'=>'post:read']); 
     return new Response("User deleted successfully".json_encode($jsonContent));
 }
+/**
+     * @Route("/loginUser/json",name="LOGINUserJSON")
+     */
+    public function LoginUserJSON(Request $request)
+    { $email= $request->query->get('mail_utilisateur');
+        $password= $request->query->get('password');
+        $em=$this->getDoctrine()->getManager();
+        $user= $em->getRepository(User::class)->findOneBy(['mail_utilisateur'=>$email]);
+        if($user){
+            if($user->getPassword()==$password){
+                $serializer = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serializer->Normalize($user);
+                return new JsonResponse($formatted);
+            }
+            else {
+                return new Response("password not found ");
+            }
+        }
+        else  {
+            return new Response("email not found ");
+        }
 
+    }
   
 }
