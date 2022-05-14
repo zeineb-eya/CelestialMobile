@@ -91,9 +91,9 @@ class Offre
     private $date_debut_offre;
 
     /**
+     * @ORM\Column(name="planning_id", nullable=true)
      * @ORM\ManyToOne(targetEntity=Planinng::class, inversedBy="offres")
      * @ORM\JoinColumn(nullable=true)
-     * @Groups("offre:read")
      */
     private $planning;
 
