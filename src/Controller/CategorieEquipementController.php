@@ -117,70 +117,54 @@ class CategorieEquipementController extends AbstractController
         return $this->redirectToRoute('categorie_equipement_index', [], Response::HTTP_SEE_OTHER);
     }
     /**
-     * @Route("/AllEquipments", name="AllEquipments")
+     * @Route("/AllCategories", name="AllCategories")
      */
-    public function AllEquipments(EquipementRepository $equipementRepository,SerializerInterface $serilazer):Response
+    public function AllCategories(CategorieEquipementRepository $categorieEquipementRepository,SerializerInterface $serializer):Response
     {
-        $equipement=$equipementRepository->findAll();
-        $json= $serilazer->normalize($equipement,'json',['equipement'=>"post:read"]);
-        return new JsonResponse($json);
-    }
+        $categorie_equipement=$categorieEquipementRepository->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($categorie_equipement,'json',['categorie_equipement'=>"post:read"]);
+        return new JsonResponse($formatted);
+    }  
     /**
-    * @Route("/AddEquipment", name="AddEquipment")
-    */
-   public function AddEquipment(Request $request,NormalizerInterface $Normalizer)
-   {
-       $em = $this->getDoctrine()->getManager();
-       $equipement = new Equipement();
-       $equipement->setNomEquipement($request->get('nom_equipement'));
-       $equipement->setEtatEquipement($request->get('etat_equipement'));
-       $equipement->setDescriptionEquipement($request->get('description_equipement'));
-       $nom=$request->get('categorieEquipement');
-
-       //$equipement->setCategorieEquipement->setNomCategorieEquipement($request->get('categorieEquipement'));
-
-       $category=new CategorieEquipement;
-       $category->setNomCategorieEquipement($request->get('categorieEquipement'));
-       $equipement->setCategorieEquipement($category);
-       $equipement->setImageEquipement($request->get('image_equipement'));
-       $em->persist($category);
-       $em->persist($equipement);
-       $em->flush();
-
-       $jsonContent= $Normalizer->normalize($equipement,'json',['groups'=>"post:read"]);
-       return 
-       new Response("An equipment has been added");;
-   }
-   /**
-   * @Route("/updateEquipmentJSON/{id}", name="updateEquipmentJSON")
+   * @Route("/updatecategoryJSON/{id}", name="updateRoleJSON")
 */
-public function updateEquipmentJSON ( Request $request, NormalizerInterface $Normalizer, $id)
+public function updatecategoryJSON ( Request $request, NormalizerInterface $Normalizer, $id)
 
-{
+{ 
     $em = $this->getDoctrine()->getManager(); 
-    $equipement = $em->getRepository(Equipement::class)->find($id);
-    $equipement->setNomEquipement($request->get('nom_equipement'));
-       $equipement->setEtatEquipement($request->get('etat_equipement'));
-       $equipement->setDescriptionEquipement($request->get('description_equipement'));
-        $nom=$request->get('categorieEquipement');
-          $category=new CategorieEquipement;
-         $category->setNomCategorieEquipement($nom);
-
-     $equipement->setCategorieEquipement($category);
-       $equipement->setImageEquipement($request->get('image_equipement'));
-       $em->persist($category);
+    $categorieEquipement = $em->getRepository(CategorieEquipement::class)->find($id);
+    $nom_categorie_equipement = $request->query->get("nom_categorie_equipement");      
+    $categorieEquipement->setNomCategorieEquipement($nom_categorie_equipement);
     $em->flush();
-    $jsonContent= $Normalizer->normalize($equipement,'json',['groups'=>"equipement:read"]);
+    $jsonContent= $Normalizer->normalize($categorieEquipement,'json',['groups'=>"post:read"]);
     return new Response("Information updated successfully".json_encode($jsonContent));
 }
-/**
-* @Route("/deleteEquipmentJSON/{id}", name="deleteEquipmentJSON")
+ /**
+* @Route("/deletecategoryJSON/{id}", name="deleteRoleJSON")
 */
-public function deleteEquipmentJSON(Request $request, NormalizerInterface $Normalizer, $id)
+public function deletecategoryJSON(Request $request, NormalizerInterface $Normalizer, $id)
 {$em = $this->getDoctrine()->getManager(); 
-$Equipement = $em->getRepository (Equipement::class)->find($id); 
-$em->remove($Equipement); $em->flush(); 
-$jsonContent= $Normalizer->normalize($Equipement,'json',['groups'=>'Equipement:read']); 
-return new Response("Equipment deleted successfully".json_encode($jsonContent));
+$categorieEquipement = $em->getRepository (CategorieEquipement::class)->find($id); 
+$em->remove($categorieEquipement); $em->flush(); 
+$jsonContent= $Normalizer->normalize($categorieEquipement,'json',['groups'=>'post:read']); 
+return new Response("Category deleted successfully".json_encode($jsonContent));
 }
+    /**
+    * @Route("/Addcategory", name="Addcategory")
+
+    */
+    public function AddCategoryJSON(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $Role =new CategorieEquipement();
+        $Role->setNomCategorieEquipement($request->get('nom_categorie_equipement'));
+        $em->persist($Role);
+        $em->flush();
+ 
+        $jsonContent= $Normalizer->normalize($Role,'json',['groups'=>"post:read"]);
+        return new Response(json_encode($jsonContent));;
+    }
+   
 }
