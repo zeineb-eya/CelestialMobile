@@ -39,6 +39,7 @@ import com.mycompany.myapp.gui.HomeOffreForm;
 import com.mycompany.myapp.gui.HomeReclamForm;
 import com.mycompany.myapp.gui.Homeform1;
 import com.mycompany.myapp.gui.ListCategory;
+import com.mycompany.myapp.gui.ListEquipment;
 import com.mycompany.myapp.gui.ListEquipmentt;
 
 /**

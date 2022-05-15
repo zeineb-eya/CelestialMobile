@@ -39,7 +39,7 @@ public class ModifierCategorieEquipement extends Form {
                 if (tfNom.getText().length() == 0)  {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 } else {
-                    try {
+                    
                         CategorieEquipement c = new CategorieEquipement(Integer.parseInt(id.getText()), tfNom.getText());
                         System.out.println(c.getId());
                         System.out.println("---------");
@@ -49,9 +49,7 @@ public class ModifierCategorieEquipement extends Form {
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }
-                    } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
-                    }
+                   
 
                 }
 

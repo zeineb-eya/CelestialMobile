@@ -44,7 +44,7 @@ public class ServiceCategory {
     public boolean addTask(CategorieEquipement c) {
         System.out.println(c);
         System.out.println("********");
-        String url = Statics.BASE_URL +"categorie/equipement/new?nom_categorie_equipement=" + c.getNom_categorie_equipement();
+        String url = Statics.BASE_URL +"/categorie/equipement/Addcategory?nom_categorie_equipement=" + c.getNom_categorie_equipement();
         //String url = Statics.BASE_URL + "create";
 
         req.setUrl(url);
@@ -83,7 +83,7 @@ public class ServiceCategory {
     public ArrayList<CategorieEquipement> getAllTasks() {
         //String url = Statics.BASE_URL+"/tasks/";
         req=new ConnectionRequest();
-        String url = Statics.BASE_URL + "categorie/equipement/AllCategories";
+        String url = Statics.BASE_URL + "/categorie/equipement/AllCategories";
         System.out.println("===>" + url);
         req.setUrl(url);
         req.setPost(false);
@@ -98,7 +98,7 @@ public class ServiceCategory {
         return cat;
     }
              public boolean  Delete(CategorieEquipement c){
-       String url = Statics.BASE_URL + "categorie/equipement/deletecategoryJSON/" +c.getId();
+       String url = Statics.BASE_URL + "/categorie/equipement/deletecategoryJSON/" +c.getId();
   
         req.setUrl(url);
         req.setPost(false);
@@ -117,7 +117,7 @@ public class ServiceCategory {
       
 }
 public boolean modifierCategorieEquipement(CategorieEquipement c) {
-        String url = Statics.BASE_URL +"categorie/equipement/updatecategoryJSON/"+c.getId()+"?nom_categorie_equipement=" + c.getNom_categorie_equipement();
+        String url = Statics.BASE_URL +"/categorie/equipement/updatecategoryJSON/"+c.getId()+"?nom_categorie_equipement=" + c.getNom_categorie_equipement();
         req.setUrl(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {

@@ -44,7 +44,7 @@ public class ServiceEquipment {
     public boolean addEquipment(Equipement E) {
         System.out.println(E);
         System.out.println("********");
-        String url = Statics.BASE_URL +"equipementt/AddEquipment?nom_equipement=" + E.getNom_equipement()+"&etat_equipement="+ E.getEtat_equipement()+"&description_equipement="+ E.getDescription_equipement()+"&categorieEquipement="+ E.getCategorie_equipement()+"&image_equipement="+ E.getImage_equipement();
+        String url = Statics.BASE_URL +"/equipementt/AddEquipment?nom_equipement=" + E.getNom_equipement()+"&etat_equipement="+ E.getEtat_equipement()+"&description_equipement="+ E.getDescription_equipement()+"&categorieEquipement="+ E.getCategorie_equipement()+"&image_equipement="+ E.getImage_equipement();
         //String url = Statics.BASE_URL + "create";
 
         req.setUrl(url);
@@ -75,7 +75,7 @@ public class ServiceEquipment {
                 E.setNom_equipement(obj.get("nomEquipement").toString());
                 E.setEtat_equipement(obj.get("etatEquipement").toString());
                 E.setDescription_equipement(obj.get("descriptionEquipement").toString());
-                E.setCategorie_equipement(obj.get("categorieEquipement").toString());
+                //E.setCategorie_equipement(obj.get("categorieEquipement").toString());
                 E.setImage_equipement(obj.get("imageEquipement").toString());
                 
     
@@ -89,7 +89,7 @@ public class ServiceEquipment {
     public ArrayList<Equipement> getAllEquipments() {
         //String url = Statics.BASE_URL+"/tasks/";
         req=new ConnectionRequest();
-        String url = Statics.BASE_URL + "equipementt/AllEquipments";
+        String url = Statics.BASE_URL + "/equipementt/AllEquipments";
         System.out.println("===>" + url);
         req.setUrl(url);
         req.setPost(false);
@@ -104,7 +104,7 @@ public class ServiceEquipment {
         return cat;
     }
              public boolean  Delete(Equipement E){
-       String url = Statics.BASE_URL + "equipementt/deleteEquipmentJSON/" +E.getId();
+       String url = Statics.BASE_URL + "/equipementt/deleteEquipmentJSON/" +E.getId();
   
         req.setUrl(url);
         req.setPost(false);
@@ -123,7 +123,7 @@ public class ServiceEquipment {
       
 }
 public boolean modifierCategorieEquipement(Equipement E) {
-        String url = Statics.BASE_URL +"equipementt/updateEquipmentJSON/"+E.getId()+"?nom_equipement="+ E.getNom_equipement()+"&etat_equipement="+ E.getEtat_equipement()+"&description_equipement="+ E.getDescription_equipement()+"&categorieEquipement="+ E.getCategorie_equipement()+"&image_equipement="+ E.getImage_equipement();
+        String url = Statics.BASE_URL +"/equipementt/updateEquipmentJSON/"+E.getId()+"?nom_equipement="+ E.getNom_equipement()+"&etat_equipement="+ E.getEtat_equipement()+"&description_equipement="+ E.getDescription_equipement()+"&categorieEquipement="+ E.getCategorie_equipement()+"&image_equipement="+ E.getImage_equipement();
         req.setUrl(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {
