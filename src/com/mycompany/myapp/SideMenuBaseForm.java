@@ -31,12 +31,15 @@ import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.gui.AddBilletForm;
 import com.mycompany.myapp.gui.ListBilletForm;
 import com.mycompany.myapp.gui.HomeForm;
+import com.mycompany.myapp.gui.HomeFormEq;
 import com.mycompany.myapp.gui.HomeReservationForm;
 import com.mycompany.myapp.gui.HomePlaninngForm;
 import com.mycompany.myapp.gui.HomeLocalisationForm;
 import com.mycompany.myapp.gui.HomeOffreForm;
 import com.mycompany.myapp.gui.HomeReclamForm;
 import com.mycompany.myapp.gui.Homeform1;
+import com.mycompany.myapp.gui.ListCategory;
+import com.mycompany.myapp.gui.ListEquipmentt;
 
 /**
  * Common code that can setup the side menu
@@ -87,6 +90,9 @@ Form current;
         //getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Blog", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> new ListEquipmentt(current));
+        getToolbar().addMaterialCommandToSideMenu("  Equipements_Categories", FontImage.MATERIAL_TRENDING_UP,  e -> new ListCategory(current));
+        getToolbar().addMaterialCommandToSideMenu("  Equipments for Admin", FontImage.MATERIAL_EXIT_TO_APP,  e -> new HomeFormEq().show());
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
     }
     

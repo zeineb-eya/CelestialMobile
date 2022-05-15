@@ -10,6 +10,7 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Billet;
@@ -61,5 +62,12 @@ public class HomeForm extends Form {
           
         
     }
+    public HomeForm(String title, Layout contentPaneLayout) {
+        super(title, contentPaneLayout);
     
+    
+}
+
+    public HomeForm() {
+    }
 }
