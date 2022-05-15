@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Equipement;
+use App\Entity\CategorieEquipement;
 use App\Form\EquipementType;
 use App\Repository\EquipementRepository;
 use Doctrine\ORM\EntityManagerInterface;
