@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieEquipementRepository::class)
- * @UniqueEntity(fields={"nom_categorie_equipement"}, message="It looks like your already have a category!")
 
 
  */
@@ -25,7 +24,7 @@ class CategorieEquipement
      */
     private $id;
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
     private $nom_categorie_equipement;
