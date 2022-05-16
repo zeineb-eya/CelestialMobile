@@ -4,8 +4,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/entities/Billet.java</file>
-            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/entities/Reservation.java</file>
+            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/gui/StatFormReservation.java</file>
+            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/gui/StatistiqueReclamForm.java</file>
         </group>
     </open-files>
 </project-private>
