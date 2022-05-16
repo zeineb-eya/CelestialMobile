@@ -20,6 +20,7 @@
 package com.mycompany.myapp;
 
 import com.codename1.components.ToastBar;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -40,8 +41,10 @@ import com.mycompany.myapp.gui.HomeOffreForm;
 //import com.mycompany.myapp.gui.HomeReclamForm;
 import com.mycompany.myapp.gui.Homeform1;
 import com.mycompany.myapp.gui.ListCategory;
+import com.mycompany.myapp.gui.ListCommentaire;
 import com.mycompany.myapp.gui.ListEquipment;
 import com.mycompany.myapp.gui.ListEquipmentt;
+import com.mycompany.myapp.gui.ListPost;
 
 /**
  * Common code that can setup the side menu
@@ -92,8 +95,7 @@ Form current;
                   getToolbar().addMaterialCommandToSideMenu("User Settings", FontImage.MATERIAL_SETTINGS,  e ->new Homeform1(current).show());
 
         //getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Blog", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Blog", FontImage.MATERIAL_TRENDING_UP,  e -> new ListPost(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> new ListEquipmentt(current));
         getToolbar().addMaterialCommandToSideMenu("  Equipements_Categories", FontImage.MATERIAL_TRENDING_UP,  e -> new ListCategory(current));
         getToolbar().addMaterialCommandToSideMenu("  Equipments for Admin", FontImage.MATERIAL_EXIT_TO_APP,  e -> new HomeFormEq().show());
@@ -101,4 +103,9 @@ Form current;
     }
     
     protected abstract void showOtherForm(Resources res);
+    protected abstract void ListPost(Resources res);
+        protected abstract void ListCommentaire(Resources res);
+
+
+    
 }
