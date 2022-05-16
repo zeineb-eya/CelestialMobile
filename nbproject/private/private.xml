@@ -1,36 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/gui/StatFormReservation.java</file>
-            <file>file:/C:/xampp/htdocs/CelestialMobileApp/src/com/mycompany/myapp/gui/StatistiqueReclamForm.java</file>
-=======
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/services/ServiceCategory.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ListEqForm.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ListCategory.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/services/ServiceBillet.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/SideMenuBaseForm.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ListEquipment.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/DeleteCategorieEquipement.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/HomeFormEq.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/AddCategory.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/services/ServiceEquipment.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/entities/Equipement.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/services/ServiceUser.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ModifierEquipment.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/AddEquipment.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/entities/CategorieEquipement.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/DeleteEquipment.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ListEquipmentt.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ListTasksForm.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/DetailOffreForm.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/utils/Statics.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/ModifierCategorieEquipement.java</file>
-            <file>file:/C:/Users/Cipher/Documents/GitHub/CelestialMobile/src/com/mycompany/myapp/gui/StatFormEquipment.java</file>
->>>>>>> 7e2318b304f02eb6c3d46dd152368393fea78c7c
+            <file>file:/C:/xampp/htdocs/CelestialMobile/src/com/mycompany/myapp/entities/Planinng.java</file>
         </group>
     </open-files>
 </project-private>
