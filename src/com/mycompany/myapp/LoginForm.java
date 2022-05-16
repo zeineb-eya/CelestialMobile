@@ -20,6 +20,8 @@
 package com.mycompany.myapp;
 
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.LEFT;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
@@ -32,6 +34,8 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServiceUser;
+
 
 /**
  * The Login form
@@ -44,20 +48,22 @@ public class LoginForm extends Form {
         setUIID("LoginForm");
         Container welcome = FlowLayout.encloseCenter(
                 new Label("Welcome, ", "WelcomeWhite"),
-                new Label("Jennifer", "WelcomeBlue")
+                new Label("User", "WelcomeBlue")
         );
         
         getTitleArea().setUIID("Container");
         
-        Image profilePic = theme.getImage("user-picture.jpg");
+        Image profilePic = theme.getImage("682a599d0d20b18c54d62810be3a1d91.jpg");
         Image mask = theme.getImage("round-mask.png");
-        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+//        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label(profilePic, "ProfilePic");
         profilePicLabel.setMask(mask.createMask());
         
-        TextField login = new TextField("jennifer.wilson88@gmail.com", "Login", 20, TextField.EMAILADDR) ;
-        TextField password = new TextField("password", "Password", 20, TextField.PASSWORD) ;
-        login.getAllStyles().setMargin(LEFT, 0);
+      TextField email = new TextField("", "Email", 20, TextField.ANY);
+        TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
+        email.setSingleLineTextArea(false);
+        password.setSingleLineTextArea(false);
+        email.getAllStyles().setMargin(LEFT, 0);
         password.getAllStyles().setMargin(LEFT, 0);
         Label loginIcon = new Label("", "TextField");
         Label passwordIcon = new Label("", "TextField");
@@ -68,12 +74,6 @@ public class LoginForm extends Form {
         
         Button loginButton = new Button("LOGIN");
         loginButton.setUIID("LoginButton");
-        loginButton.addActionListener(e -> {
-            Toolbar.setGlobalToolbar(false);
-            new WalkthruForm(theme).show();
-            Toolbar.setGlobalToolbar(true);
-        });
-        
         Button createNewAccount = new Button("CREATE NEW ACCOUNT");
         createNewAccount.setUIID("CreateNewAccountButton");
         
@@ -90,7 +90,7 @@ public class LoginForm extends Form {
                 welcome,
                 profilePicLabel,
                 spaceLabel,
-                BorderLayout.center(login).
+                BorderLayout.center(email).
                         add(BorderLayout.WEST, loginIcon),
                 BorderLayout.center(password).
                         add(BorderLayout.WEST, passwordIcon),
@@ -98,6 +98,14 @@ public class LoginForm extends Form {
                 createNewAccount
         );
         add(BorderLayout.CENTER, by);
+        loginButton.requestFocus();
+        loginButton.addActionListener(e -> {
+        
+           ServiceUser.getInstance().signin(email, password,theme);
+            
+        });
+        
+        
         
         // for low res and landscape devices
         by.setScrollableY(true);

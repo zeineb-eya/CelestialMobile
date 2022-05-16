@@ -22,18 +22,24 @@ package com.mycompany.myapp;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Style;
+import com.mycompany.myapp.gui.SessionManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.entities.User;
+import com.mycompany.myapp.gui.UpdateUserForm;
+import com.mycompany.myapp.services.ServiceUser;
 
 /**
  * Represents a user profile in the app, the first form we open after the walkthru
@@ -50,49 +56,96 @@ public class ProfileForm extends SideMenuBaseForm {
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
         profilePicLabel.setMask(mask.createMask());
-
+        
+    
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
+   
+      
+      int id = SessionManager.getId();
+          System.out.println(id+"yes");
+        String nom = SessionManager.getNom_utilisateur();
+        String prenom = SessionManager.getPrenom_utilisateur();
+        String pseudo = SessionManager.getSudo_utilisateur();
+        String email = SessionManager.getMail_utilisateur();
+        String password = SessionManager.getPassword();
+
+       TextField username = new TextField(nom);
+        username.setUIID("TextFieldBlack");
+        addStringValue("Nom", username);
+        TextField prenom1 = new TextField(prenom);
+        prenom1.setUIID("TextFieldBlack");
+        addStringValue("Prenom", prenom1);
+         TextField pseudo1 = new TextField(pseudo);
+        pseudo1.setUIID("TextFieldBlack");
+        addStringValue("Peseudo", pseudo1);
+        TextField email1 = new TextField(email);
+        email1.setUIID("TextFieldBlack");
+        addStringValue("E-Mail", email1);
         
-        Container remainingTasks = BoxLayout.encloseY(
+        TextField password1 = new TextField(password,"password",20,TextField.PASSWORD);
+        password1.setUIID("TextFieldBlack");
+        addStringValue("Password", password1);
+       
+       FloatingActionButton btnModifier = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+       btnModifier.setUIID("Button");
+          btnModifier.addPointerPressedListener(l ->   { 
+           
+          SessionManager.setId((int)id);
+           SessionManager.setNom_utilisateur(nom);     
+            SessionManager.setPrenom_utilisateur(prenom); 
+            SessionManager.setSudo_utilisateur(pseudo); 
+            SessionManager.setMail_utilisateur(email); 
+            SessionManager.setPassword(password); 
+           
+       User u = new User(id,
+                  String.valueOf(nom).toString(),
+                  String.valueOf(prenom).toString(),
+                  String.valueOf(pseudo).toString(),
+                  String.valueOf(email).toString(),
+                  String.valueOf(password).toString()
+                                 ); 
+       //appel fonction modfier reclamation men articles
+       
+       if(ServiceUser.getInstance().UpdateUser(u)) { // if true
+           new UpdateUserForm(u,current).show();
+       }
+      
+         
+
+       add(btnModifier);
+        show();
+    });
+        
+                    Container remainingTasks = BoxLayout.encloseY(
                         new Label("12", "CenterTitle"),
-                        new Label("remaining tasks", "CenterSubTitle")
+                        new Label(prenom, "CenterSubTitle")
                 );
         remainingTasks.setUIID("RemainingTasks");
         Container completedTasks = BoxLayout.encloseY(
                         new Label("32", "CenterTitle"),
-                        new Label("completed tasks", "CenterSubTitle")
+                        new Label(nom, "CenterSubTitle")
         );
-        completedTasks.setUIID("CompletedTasks");
+        completedTasks.setUIID(nom);
 
         Container titleCmp = BoxLayout.encloseY(
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
-                                BoxLayout.encloseY(
-                                    new Label("Jennifer Wilson", "Title"),
+                                BoxLayout.encloseY( 
+                                        new Label(nom+prenom, "Title"),
                                     new Label("UI/UX Designer", "SubTitle")
-                                )
+                                ) 
                             ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)
                 );
         
-        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
-        fab.getAllStyles().setMarginUnit(Style.UNIT_TYPE_PIXELS);
-        fab.getAllStyles().setMargin(BOTTOM, completedTasks.getPreferredH() - fab.getPreferredH() / 2);
-        tb.setTitleComponent(fab.bindFabToContainer(titleCmp, CENTER, BOTTOM));
-                        
-        add(new Label("Today", "TodayTitle"));
-        
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-        
-        addButtonBottom(arrowDown, "Finish landing page concept", 0xd997f1, true);
-        addButtonBottom(arrowDown, "Design app illustrations", 0x5ae29d, false);
-        addButtonBottom(arrowDown, "Javascript training ", 0x4dc2ff, false);
-        addButtonBottom(arrowDown, "Surprise Party for Matt", 0xffc06f, false);
+       btnModifier.getAllStyles().setMarginUnit(Style.UNIT_TYPE_PIXELS);
+        btnModifier.getAllStyles().setMargin(BOTTOM, completedTasks.getPreferredH() - btnModifier.getPreferredH() / 2);
+        tb.setTitleComponent(btnModifier.bindFabToContainer(titleCmp, CENTER, BOTTOM));  
         setupSideMenu(res);
-    }
+        }
     
     private void addButtonBottom(Image arrowDown, String text, int color, boolean first) {
         MultiButton finishLandingPage = new MultiButton(text);
@@ -123,5 +176,10 @@ public class ProfileForm extends SideMenuBaseForm {
     @Override
     protected void showOtherForm(Resources res) {
         new StatsForm(res).show();
+    }
+     private void addStringValue(String s, Component v) {
+        add(BorderLayout.west(new Label(s, "PaddedLabel")).
+                add(BorderLayout.CENTER, v));
+      
     }
 }
