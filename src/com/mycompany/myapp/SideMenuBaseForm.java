@@ -35,8 +35,8 @@ import com.mycompany.myapp.gui.HomeFormEq;
 import com.mycompany.myapp.gui.HomeReservationForm;
 import com.mycompany.myapp.gui.HomePlaninngForm;
 import com.mycompany.myapp.gui.HomeLocalisationForm;
-import com.mycompany.myapp.gui.HomeOffreForm;
-import com.mycompany.myapp.gui.HomeReclamForm;
+//import com.mycompany.myapp.gui.HomeOffreForm;
+//import com.mycompany.myapp.gui.HomeReclamForm;
 import com.mycompany.myapp.gui.Homeform1;
 import com.mycompany.myapp.gui.ListCategory;
 import com.mycompany.myapp.gui.ListEquipment;
@@ -84,8 +84,10 @@ Form current;
         getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReservationForm(current).show());
          //getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
   //  getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm().show());
-        getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
-  getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeOffreForm(current).show());
+
+
+//        getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
+//  getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeOffreForm(current).show());
                   getToolbar().addMaterialCommandToSideMenu("User Settings", FontImage.MATERIAL_SETTINGS,  e ->new Homeform1(current).show());
 
         //getToolbar().addMaterialCommandToSideMenu("  Equipements", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
