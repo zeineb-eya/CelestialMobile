@@ -339,16 +339,17 @@ return $this->render('offre/index.html.twig', [
      /**
      * @Route("/AddOffres/json", name="AddOffres")
      */
-    public function AddOffresJSON(Request $request,SerializerInterface $serilazer)
+    public function AddOffresJSON(Request $request,SerializerInterface $serilazer, EntityManagerInterface $em)
     {
         $em = $this->getDoctrine()->getManager();
         $offre = new Offre();
+        $date_debut_offre  = new \DateTime("now");
+        $date_fin_offre  = new \DateTime("now");
+
         $offre->setNomOffre($request->get('nom_offre'));
         $offre->setDescriptionOffre($request->get('description_offre'));
         $offre->setPrixOffre($request->get('prix_offre'));
         $offre->setReduction($request->get('reduction'));
-        $date_debut_offre  = new \DateTime("now");
-        $date_fin_offre  = new \DateTime("now");
         $offre->setDateDebutOffre($date_debut_offre);
         $offre->setDateFinOffre($date_fin_offre);
      

@@ -409,34 +409,6 @@ class ReclamationController extends AbstractController
 
  /*******************JSON *******************/
 
-    
-    /**************Add reclam li njreb beha tawa*************** */
-
-    /**
-     * @Route("addReclamationjson", name="add_reclamationjson")
-     * @Method("POST")
-     */
-
-    public function ajouterReclamationJson(Request $request, Reclamation $reclamation)
-    {
-        $reclamation = new Reclamation();
-        $description_reclamation = $request->query->get("description_reclamation");
-        $etat_reclamation = $request->query->get("etat_reclamation");
-        //  $user = $request->query->get("id_user");
-        $em = $this->getDoctrine()->getManager();
-        $date_reclamation = new \DateTime("now");
-
-        $reclamation->setDescriptionReclamation($description_reclamation);
-        $reclamation->setEtatReclamation($etat_reclamation);
-        $reclamation->setDateReclamation($date_reclamation);
-        //  $reclamation->setUser($user) ;
-
-        $em->persist($reclamation);
-        $em->flush();
-        $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($reclamation);
-        return new JsonResponse($formatted);
-    }
 
 
     /*************Modifier reclam li njreb feha ******* */
@@ -466,40 +438,7 @@ class ReclamationController extends AbstractController
     }
 
 
-    /************************Ajout JSON li temchiliii ************* */
-
-    /**
-     * @Route("/addReclamationJSON/new/{user}", name="addReclamationJSON")
-     * @Method("POST")
-     */
-    public function addReclamationJSON(Request $request, NormalizerInterface $Normalizer, EntityManagerInterface $em)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $reclamation = new Reclamation();
-        $date_reclamation = new \DateTime("now");
-        $user = $this->getUser();
-
-        $reclamation->setDescriptionReclamation($request->get('description_reclamation'));
-        $reclamation->setEtatReclamation($request->get('etat_reclamation'));
-        $reclamation->setDateReclamation($date_reclamation);
-        // $id = $request->query->get("id_user");
-        // $reclamation->setUser($id) ;
-        $reclamation->setUser($user);
-        // $reclamation->setDateReclamation($request->get('id user'));
-        //  $reclamation->setDateReclamation($request->get('date_reclamation'));
-        //$reclamation->setDateReclamation((\DateTime::createFromFormat('d-m-Y H:i', '28-02-2022')));
-        /*  $em->persist($reclamation);
-        $em->flush();
-        $jsonContent = $Normalizer->normalize($reclamation, 'json', ['groups' => 'post:read']);
-        return new Response(json_encode(($jsonContent)));
-*/
-        $em->persist($reclamation);
-        $em->flush();
-        $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($reclamation);
-        return new JsonResponse($formatted);
-    }
+   
     /*****************************************JSON FINAL crud********************************************************** */
 
 
@@ -536,15 +475,15 @@ class ReclamationController extends AbstractController
    
     /************** Ajout reclam  b id li njreb feha tawa w temchiii Finalll**************/
     /**
-     * @Route("/ajoutReclamationjson/{id}", name="ajoutReclamationjson")
+     * @Route("/ajoutReclamationjson/{user}", name="ajoutReclamationjjson")
      */
-    public function ajoutReclamationjson(Request $request, SerializerInterface $serilazer, EntityManagerInterface $em, User $id)
+    public function ajoutReclamationjson(Request $request, SerializerInterface $serilazer, EntityManagerInterface $em,User $user)
     {
         $em = $this->getDoctrine()->getManager();
         $reclamation = new Reclamation();
         $date_reclamation = new \DateTime("now");
         $etat_reclamation = 'envoye';
-        $user = $em->getRepository(User::class)->find($id);
+        $user = $em->getRepository(User::class)->find($user);
 
         $reclamation->setUser($user);
         // $reclamation->setUser($user);
