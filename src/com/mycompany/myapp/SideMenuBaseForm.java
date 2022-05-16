@@ -36,6 +36,7 @@ import com.mycompany.myapp.gui.HomeReservationForm;
 import com.mycompany.myapp.gui.HomePlaninngForm;
 import com.mycompany.myapp.gui.HomeLocalisationForm;
 import com.mycompany.myapp.gui.HomeOffreForm;
+import com.mycompany.myapp.gui.HomeReclamForm;
 //import com.mycompany.myapp.gui.HomeOffreForm;
 //import com.mycompany.myapp.gui.HomeReclamForm;
 import com.mycompany.myapp.gui.Homeform1;
@@ -87,7 +88,7 @@ Form current;
   //  getToolbar().addMaterialCommandToSideMenu("  Reservation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm().show());
 
 
-//        getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
+ getToolbar().addMaterialCommandToSideMenu("  Reclamation", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeReclamForm(current).show());
  getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeOffreForm(current).show());
                   getToolbar().addMaterialCommandToSideMenu("User Settings", FontImage.MATERIAL_SETTINGS,  e ->new Homeform1(current).show());
 
