@@ -53,9 +53,9 @@ security:
         #- { path: ^/equipementt/edit , roles: ROLE_ADMIN }
         #- { path: ^/equipementt/display , roles: ROLE_ADMIN }
         #- { path: ^/role , roles: ROLE_ADMIN }
-        - { path: ^/commentaire , roles: ROLE_ADMIN }
-        - { path: ^/post , roles: ROLE_ADMIN }
-        - { path: ^/categorie/post , roles: ROLE_ADMIN }
+        #- { path: ^/commentaire , roles: ROLE_ADMIN }
+        #- { path: ^/post , roles: ROLE_ADMIN }
+        #- { path: ^/categorie/post , roles: ROLE_ADMIN }
         - { path: ^/showC , roles: ROLE_USER }
       #  - { path: ^/offre , roles: ROLE_ADMIN }
        # - { path: ^/reclamation , roles: ROLE_ADMIN }
