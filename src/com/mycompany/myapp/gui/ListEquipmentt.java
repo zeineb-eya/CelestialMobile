@@ -73,7 +73,7 @@ public class ListEquipmentt extends Form{
         Label labelnom= new Label("Nom");
         Label labelprenom= new Label("Etat");
         Label labeladresse = new Label("Description");
-        Label labelemail = new Label("Categorie");
+        //Label labelemail = new Label("Categorie");
         //Label labelpassword = new Label("imageEq");
        
         
@@ -88,7 +88,7 @@ public class ListEquipmentt extends Form{
 
         HeadConainter.add(labelprenom);
         HeadConainter.add(labeladresse);
-        HeadConainter.add(labelemail);
+        //HeadConainter.add(labelemail);
         //HeadConainter.add(labelpassword);
 
         
@@ -185,7 +185,7 @@ public class ListEquipmentt extends Form{
             BodyConainter.add(new Label(String.valueOf(eq.getNom_equipement())));
             BodyConainter.add(new Label(String.valueOf(eq.getEtat_equipement())));
             BodyConainter.add(new Label(String.valueOf(eq.getDescription_equipement())));
-            BodyConainter.add(new Label(String.valueOf(eq.getCategorie_equipement())));
+            //BodyConainter.add(new Label(String.valueOf(eq.getCategorie_equipement())));
             //BodyConainter.add(new Label(String.valueOf(eq.getImage_equipement())));
 
 
