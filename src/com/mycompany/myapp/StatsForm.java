@@ -139,7 +139,7 @@ public class StatsForm extends SideMenuBaseForm {
         return i;
     }
     
-    @Override
+  //  @Override
     protected void showOtherForm(Resources res) {
         new ProfileForm(res).show();
     }

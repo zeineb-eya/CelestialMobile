@@ -82,7 +82,7 @@ Form current;
         sidemenuTop.setUIID("SidemenuTop");
         
         getToolbar().addComponentToSideMenu(sidemenuTop);
-        getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showOtherForm(res));
+   //     getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Planning", FontImage.MATERIAL_TRENDING_UP,  e -> new HomePlaninngForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  locations", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeLocalisationForm(current).show());
         getToolbar().addMaterialCommandToSideMenu("  Billet", FontImage.MATERIAL_TRENDING_UP,  e -> new HomeForm(current).show());
@@ -103,9 +103,9 @@ Form current;
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
     }
     
-    protected abstract void showOtherForm(Resources res);
-    protected abstract void ListPost(Resources res);
-        protected abstract void ListCommentaire(Resources res);
+ //   protected abstract void showOtherForm(Resources res);
+ //  protected abstract void ListPost(Resources res);
+  //      protected abstract void ListCommentaire(Resources res);
 
 
     

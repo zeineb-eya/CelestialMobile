@@ -80,7 +80,7 @@ public class ServiceLocalisation {
                 o.setPositionDepartLocalisation(obj.get("positionDepart_localisation").toString());
                 o.setPositionAriveePlanning(obj.get("positionArivee_planning").toString());
                 o.setFusee(obj.get("fusee").toString());
-                o.setHeureDepartLocalisation(obj.get("heureDepart_localisation").toString());
+                o.setHeureDepartLocalisation(obj.get("heure_depart_localisation").toString());
                 o.setHeureArriveeLoacalisation(obj.get("heureArrivee_loacalisation").toString());
                 
                 localisations.add(o);
@@ -164,7 +164,7 @@ public class ServiceLocalisation {
                 o.setPositionDepartLocalisation(obj.get("positionDepart_localisation").toString());
                 o.setPositionAriveePlanning(obj.get("positionArivee_planning").toString());
                 o.setFusee(obj.get("fusee").toString());
-                o.setHeureDepartLocalisation(obj.get("heureDepart_localisation").toString());
+                o.setHeureDepartLocalisation(obj.get("heuredepartlocalisation").toString());
                 o.setHeureArriveeLoacalisation(obj.get("heureArrivee_loacalisation").toString());
               
 
